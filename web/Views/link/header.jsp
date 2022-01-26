@@ -11,7 +11,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Project Grape</title>
+        <link rel="stylesheet" href="Views/link/style.css">
     </head>
-    <nav>
+    <body>
+        <header>
+            <div class="headerContent">
+                <h1>MathWiz</h1>
+                <p>Math Learning Site</p>
+            </div>
+        </header>
+        <nav>
         
-    </nav>
+        </nav>
