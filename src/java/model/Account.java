@@ -1,18 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 /**
  *
  * @author chris
  */
-public abstract class Account {
+
+enum AccountType {
+    STUDENT, 
+    TEACHER,
+    ADMIN
+}
+
+public class Account {
     private int accountID;
     private String userName;
     private String password;
     private String fullName;
+    private AccountType accountType;
+    
+    public Account () { }
+    
+    public Account(int accountID, String userName, String password, String fullName, AccountType accountType) {
+        this.accountID = accountID;
+        this.userName = userName;
+        this.password = password;
+        this.fullName = fullName;
+        this.accountType = accountType;
+    }
     
     public int getAccountID() {
         return accountID;
@@ -44,5 +58,13 @@ public abstract class Account {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public AccountType getType() {
+        return accountType;
+    }
+
+    public void setType(AccountType accountType) {
+        this.accountType = accountType;
     }
 }

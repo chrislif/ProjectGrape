@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.util.List;
@@ -16,6 +12,13 @@ public abstract class Assessment {
     public List<String> tagList;
     public List<Question> questionList;
 
+    public Assessment(int assessmentID, int assessmentLevel, List<String> tagList, List<Question> questionList) {
+        this.assessmentID = assessmentID;
+        this.assessmentLevel = assessmentLevel;
+        this.tagList = tagList;
+        this.questionList = questionList;
+    }
+    
     public int getAssessmentID() {
         return assessmentID;
     }

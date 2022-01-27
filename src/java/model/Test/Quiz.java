@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model.Test;
 
+import java.util.List;
 import model.Assessment;
+import model.Question;
 
 /**
  *
@@ -13,6 +11,11 @@ import model.Assessment;
 public class Quiz extends Assessment{
     private Boolean isRandomized;
 
+    public Quiz(int assessmentID, int assessmentLevel, List<String> tagList, List<Question> questionList, Boolean isRandomized) {
+        super(assessmentID, assessmentLevel, tagList, questionList);
+        this.isRandomized = isRandomized;
+    }
+    
     public Boolean getIsRandomized() {
         return isRandomized;
     }

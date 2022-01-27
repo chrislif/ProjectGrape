@@ -1,15 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model.Test;
 
+import java.util.List;
 import model.Assessment;
+import model.Question;
 
 /**
  *
  * @author chris
  */
 public class Drill extends Assessment{
-    
+    public Drill(int assessmentID, int assessmentLevel, List<String> tagList, List<Question> questionList) {
+        super(assessmentID, assessmentLevel, tagList, questionList);
+    }
 }

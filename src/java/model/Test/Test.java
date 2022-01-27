@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model.Test;
 
+import java.util.List;
 import model.Assessment;
+import model.Question;
 
 /**
  *
@@ -13,6 +11,11 @@ import model.Assessment;
 public class Test extends Assessment{
     private int teacherID;
 
+    public Test(int assessmentID, int assessmentLevel, List<String> tagList, List<Question> questionList, int teacherID) {
+        super(assessmentID, assessmentLevel, tagList, questionList);
+        this.teacherID = teacherID;
+    }
+    
     public int getTeacherID() {
         return teacherID;
     }
@@ -20,6 +23,4 @@ public class Test extends Assessment{
     public void setTeacherID(int teacherID) {
         this.teacherID = teacherID;
     }
-    
-    
 }
