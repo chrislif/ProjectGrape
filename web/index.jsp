@@ -4,7 +4,7 @@
     Author     : chris
 --%>
 
-<jsp:include page="Views/link/header.jsp"/>
+<jsp:include page="/page/link/header.jsp"/>
     <main>
         <div class="mainContent">
             <h2>
@@ -54,5 +54,5 @@
             </div>
         </div>
     </main>
-<jsp:include page="Views/link/footer.jsp"/>
+<jsp:include page="/page/link/footer.jsp"/>
 

@@ -2,7 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>controllers.Public</servlet-class>
+        <servlet-class>controller.Public</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
@@ -10,7 +10,7 @@
     </servlet-mapping>
        <servlet>
         <servlet-name>PrivateController</servlet-name>
-        <servlet-class>controllers.Private</servlet-class>
+        <servlet-class>controller.Private</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PrivateController</servlet-name>
