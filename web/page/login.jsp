@@ -13,4 +13,3 @@
         </div>
     </main>
 <jsp:include page="/page/link/footer.jsp"/>
-

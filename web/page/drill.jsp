@@ -1,6 +1,6 @@
 <%-- 
-    Document   : profile
-    Created on : Jan 26, 2022, 5:53:43 PM
+    Document   : drill
+    Created on : Jan 26, 2022, 7:07:36 PM
     Author     : chris
 --%>
 
@@ -8,7 +8,7 @@
     <main>
         <div class="mainContent">
             <p>
-                profile
+                drill
             </p>
         </div>
     </main>

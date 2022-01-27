@@ -63,7 +63,15 @@ public class Private extends HttpServlet{
             case "profile":
                 url = "/page/profile.jsp";
                 break;
+            
+            case "test":
+                url = "/page/test.jsp";
+                break;
                 
+            case "drill":
+                url = "/page/drill.jsp";
+                break;
+            
             default:
                 url = "/index.jsp";
                 break;
