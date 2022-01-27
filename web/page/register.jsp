@@ -8,12 +8,12 @@
     <main>
         <div class="mainContent">
             <h2>
-                Login
+                Register
             </h2>
             <div class="gridWrapper">
                 <div class="gridSubContent">
                     <form action="public" method="post">
-                        <input type="hidden" name="action" value="authorize">
+                        <input type="hidden" name="action" value="register">
                         <div>
                             <p>
                                 Username: 
@@ -26,24 +26,14 @@
                             </p>
                             <input type="password" name="password" value="${password}">
                         </div>
-                        <input type="submit" value="Login" class="styledButton">
+                        <div style="margin-top: 15px;">
+                            <p>
+                                Re-enter Password: 
+                            </p>
+                            <input type="password" name="passwordcheck" value="${passwordCheck}">
+                        </div>
+                        <input type="submit" value="Create" class="styledButton">
                     </form>
-                </div>
-                <div class="gridSubContent">
-                    <h2>Welcome to MathWiz!</h2>
-                    <p>Please enter your username and password to log-in.</p>
-                    <p>If you are a new user then register here:</p>
-                    <form action="public" method="post">
-                        <input type="hidden" name="action" value="toRegister">
-                        <input type="submit" value="Register" class="styledButton">
-                    </form>
-                </div>
-                <div class="gridSubContent">
-                    <ul class="errorList">
-                        <c:forEach items="${errors}" var="error">
-                            <li>${error}</li>
-                        </c:forEach>
-                    </ul>
                 </div>
             </div>
         </div>

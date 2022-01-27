@@ -6,25 +6,25 @@ package model;
  */
 
 enum AccountType {
+    ADMIN,
     STUDENT, 
     TEACHER,
-    ADMIN
 }
 
 public class Account {
     private int accountID;
     private String userName;
     private String password;
-    private String fullName;
+    private String nickname;
     private AccountType accountType;
     
     public Account () { }
     
-    public Account(int accountID, String userName, String password, String fullName, AccountType accountType) {
+    public Account(int accountID, String userName, String password, String nickname, AccountType accountType) {
         this.accountID = accountID;
         this.userName = userName;
         this.password = password;
-        this.fullName = fullName;
+        this.nickname = nickname;
         this.accountType = accountType;
     }
     
@@ -53,11 +53,11 @@ public class Account {
     }
 
     public String getFullName() {
-        return fullName;
+        return nickname;
     }
 
     public void setFullName(String fullName) {
-        this.fullName = fullName;
+        this.nickname = fullName;
     }
 
     public AccountType getType() {

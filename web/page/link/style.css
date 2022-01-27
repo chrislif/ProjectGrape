@@ -112,3 +112,6 @@ footer {
     margin: 15px;
 }
 
+.errorList {
+    list-style: none;
+}

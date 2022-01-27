@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,26 +57,53 @@ public class Public extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String url;
+        String username;
+        String password;
+        
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
+        ArrayList<String> errors = new ArrayList();
         
         switch (action) {
             case "toLogin":
                 url = "/page/login.jsp";
                 break;
                
-            case "authorize":
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
+            case "toRegister":
+                url = "/page/register.jsp";
+                break;
                 
-                if (isAuthorized(username, password)) {
+            case "authorize":
+                username = request.getParameter("username");
+                password = request.getParameter("password");
+                
+                
+                if (Authorization.IsValidLogin(username, password)) {
+                    if (Authorization.IsAuthorized(username, password)) {
+                        url = "/page/profile.jsp";
+                    }
+                    else {
+                        url = "/page/login.jsp";
+                    }
+                }
+                else {
+                        url = "/page/login.jsp";
+                    }
+                break;
+               
+            case "register":
+                username = request.getParameter("username");
+                password = request.getParameter("password");
+                String passwordCheck = request.getParameter("passwordCheck");
+                
+                if (Authorization.RegisterUser(username, password, passwordCheck)) {
                     url = "/page/profile.jsp";
                 }
                 else {
-                    url = "/page/login.jsp";
+                    url = "/page/register.jsp";
                 }
                 break;
-               
+                
             default:
                 url = "/index.jsp";
                 break;
@@ -94,11 +122,5 @@ public class Public extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
-    
-    private Boolean isAuthorized(String username, String password) {
-        
-        
-        return true;
     }
 }
