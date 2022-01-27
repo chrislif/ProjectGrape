@@ -21,5 +21,23 @@
             </div>
         </header>
         <nav>
-        
+            <div class="navbar">
+                <ul class="navlist">
+                    <li>
+                        <a href="/ProjectGrape/public?action=home">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/ProjectGrape/private?action=profile">Profile</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/ProjectGrape/private?action=assessment">Assessment</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/ProjectGrape/public?action=login">Login</a>
+                    </li>
+                </ul>
+            </div>
         </nav>

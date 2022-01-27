@@ -15,7 +15,10 @@ public class Public extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+        String url = "/index.jsp";
+        HttpSession session = request.getSession();
+        
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     
     @Override
