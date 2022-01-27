@@ -38,7 +38,7 @@ public class Private extends HttpServlet{
         
         switch (action) {
             default:
-                url = "/index.jsp";
+                url = "/page/login.jsp";
                 break;
         }
         
@@ -60,20 +60,20 @@ public class Private extends HttpServlet{
         HttpSession session = request.getSession();
         
         switch (action) {
-            case "profile":
+            case "toProfile":
                 url = "/page/profile.jsp";
                 break;
             
-            case "test":
+            case "toTest":
                 url = "/page/test.jsp";
                 break;
                 
-            case "drill":
+            case "toDrill":
                 url = "/page/drill.jsp";
                 break;
             
             default:
-                url = "/index.jsp";
+                url = "/page/login.jsp";
                 break;
         }
         

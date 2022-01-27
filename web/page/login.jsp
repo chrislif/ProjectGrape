@@ -12,20 +12,21 @@
             </h2>
             <div class="gridWrapper">
                 <div class="gridSubContent">
-                    <form>
+                    <form action="public" method="post">
+                        <input type="hidden" name="action" value="authorize">
                         <div>
                             <p>
                                 Username: 
                             </p>
-                            <input type="text">
+                            <input type="text" name="username" value="${username}">
                         </div>
                         <div style="margin-top: 15px;">
                             <p>
                                 Password: 
                             </p>
-                            <input type="text">
+                            <input type="password" name="password" value="${password}">
                         </div>
-                        <input type="submit" style="margin-top: 15px;">
+                        <input type="submit" value="Login" class="styledButton">
                     </form>
                 </div>
                 <div class="gridSubContent">

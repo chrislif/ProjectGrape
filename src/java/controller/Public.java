@@ -60,10 +60,22 @@ public class Public extends HttpServlet {
         HttpSession session = request.getSession();
         
         switch (action) {
-            case "login":
+            case "toLogin":
                 url = "/page/login.jsp";
                 break;
+               
+            case "authorize":
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
                 
+                if (isAuthorized(username, password)) {
+                    url = "/page/profile.jsp";
+                }
+                else {
+                    url = "/page/login.jsp";
+                }
+                break;
+               
             default:
                 url = "/index.jsp";
                 break;
@@ -82,5 +94,11 @@ public class Public extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
+    }
+    
+    private Boolean isAuthorized(String username, String password) {
+        
+        
+        return true;
     }
 }

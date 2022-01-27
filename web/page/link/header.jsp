@@ -25,31 +25,31 @@
                 <ul class="navlist">
                     <li>
                         <form action="public" method="post">
-                            <input type="hidden" name="action" value="home">
+                            <input type="hidden" name="action" value="toHome">
                             <input type="submit" value="Home" class="navbutton">
                         </form>
                     </li>
                     <li>
                         <form action="private" method="post">
-                            <input type="hidden" name="action" value="profile">
+                            <input type="hidden" name="action" value="toProfile">
                             <input type="submit" value="Profile" class="navbutton">
                         </form>
                     </li>
                     <li>
                         <form action="private" method="post">
-                            <input type="hidden" name="action" value="test">
+                            <input type="hidden" name="action" value="toTest">
                             <input type="submit" value="Test" class="navbutton">
                         </form>
                     </li>
                     <li>
                         <form action="private" method="post">
-                            <input type="hidden" name="action" value="drill">
+                            <input type="hidden" name="action" value="toDrill">
                             <input type="submit" value="Drill" class="navbutton">
                         </form>
                     </li>
                     <li>
                         <form action="public" method="post">
-                            <input type="hidden" name="action" value="login">
+                            <input type="hidden" name="action" value="toLogin">
                             <input type="submit" value="Login" class="navbutton">
                         </form>
                     </li>
