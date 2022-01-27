@@ -29,28 +29,24 @@
                             <input type="submit" value="Home" class="navbutton">
                         </form>
                     </li>
-                    
                     <li>
                         <form action="private" method="post">
                             <input type="hidden" name="action" value="profile">
                             <input type="submit" value="Profile" class="navbutton">
                         </form>
                     </li>
-                    
                     <li>
                         <form action="private" method="post">
                             <input type="hidden" name="action" value="test">
                             <input type="submit" value="Test" class="navbutton">
                         </form>
                     </li>
-                    
                     <li>
                         <form action="private" method="post">
                             <input type="hidden" name="action" value="drill">
                             <input type="submit" value="Drill" class="navbutton">
                         </form>
                     </li>
-                    
                     <li>
                         <form action="public" method="post">
                             <input type="hidden" name="action" value="login">
@@ -60,3 +56,4 @@
                 </ul>
             </div>
         </nav>
+        

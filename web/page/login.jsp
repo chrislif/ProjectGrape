@@ -7,9 +7,9 @@
 <jsp:include page="/page/link/header.jsp"/>
     <main>
         <div class="mainContent">
-            <p>
-                login
-            </p>
+            <h2>
+                Login
+            </h2>
         </div>
     </main>
 <jsp:include page="/page/link/footer.jsp"/>
