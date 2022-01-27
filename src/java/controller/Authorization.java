@@ -4,6 +4,10 @@
  */
 package controller;
 
+import data.AuthDB;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import model.Account;
 import java.util.ArrayList;
 
 /**
@@ -28,18 +32,36 @@ public class Authorization {
         return isValid;
     }
     
-    protected static Boolean IsAuthorized(String username, String password, ArrayList<String> errorList) {
-        Boolean isAuthorized = true;
-        
-        
-        
-        return isAuthorized;
+    protected static Boolean IsAuthorized(String userName, String password, ArrayList<String> errorList, Account currentUser) {
+        try {
+            currentUser = AuthDB.loginUser(userName, password);
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
     }
     
-    protected static Boolean RegisterUser(String username, String password, String passwordCheck) {
+    protected static Boolean RegisterUser(String username, String password, String passwordCheck, ArrayList<String> errorList, Account currentUser) {
+        Account user = new Account();
+        String hash;
+        String salt = "123456";
         
+        try {
+            hash = AuthDB.hashPassword(password, salt);
+        } catch (NoSuchAlgorithmException ex) {
+            errorList.add("Error: Unable to encrypt password");
+            return false;
+        }
         
+        try {
+            AuthDB.createAccount(user, username, hash);
+            currentUser = user;
+        }
+        catch (SQLException ex) {
+            errorList.add(ex.getMessage());
+            return false;
+        }
         
-        return false;
+        return true;
     }
 }

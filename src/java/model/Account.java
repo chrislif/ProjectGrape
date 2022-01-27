@@ -5,21 +5,16 @@ package model;
  * @author chris
  */
 
-enum AccountType {
-    ADMIN,
-    STUDENT, 
-    TEACHER,
-}
-
 public class Account {
     private int accountID;
     private String userName;
     private String nickname;
-    private AccountType accountType;
+    private String accountType;
+    private String email;
     
     public Account () { }
     
-    public Account(int accountID, String userName, String nickname, AccountType accountType) {
+    public Account(int accountID, String userName, String nickname, String accountType) {
         this.accountID = accountID;
         this.userName = userName;
         this.nickname = nickname;
@@ -42,19 +37,29 @@ public class Account {
         this.userName = userName;
     }
 
-    public String getFullName() {
+    public String getNickname() {
         return nickname;
     }
 
-    public void setFullName(String fullName) {
-        this.nickname = fullName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public AccountType getType() {
+    public String getType() {
         return accountType;
     }
 
-    public void setType(AccountType accountType) {
+    public void setType(String accountType) {
         this.accountType = accountType;
     }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    
 }

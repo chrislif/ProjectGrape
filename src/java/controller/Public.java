@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
@@ -64,6 +65,8 @@ public class Public extends HttpServlet {
         HttpSession session = request.getSession();
         ArrayList<String> errorList = new ArrayList();
         
+        Account currentUser = (Account) session.getAttribute("currentUser");
+        
         switch (action) {
             case "toLogin":
                 url = "/page/auth/login.jsp";
@@ -82,7 +85,8 @@ public class Public extends HttpServlet {
                 password = request.getParameter("password");
                 
                 if (Authorization.IsValidLogin(username, password, errorList)) {
-                    if (Authorization.IsAuthorized(username, password, errorList)) {
+                    if (Authorization.IsAuthorized(username, password, errorList, currentUser)) {
+                        session.setAttribute("currentUser", currentUser);
                         url = "/page/profile.jsp";
                     }
                     else {
@@ -102,7 +106,8 @@ public class Public extends HttpServlet {
                 password = request.getParameter("password");
                 String passwordCheck = request.getParameter("passwordCheck");
                 
-                if (Authorization.RegisterUser(username, password, passwordCheck)) {
+                if (Authorization.RegisterUser(username, password, passwordCheck, errorList, currentUser)) {
+                    session.setAttribute("currentUser", currentUser);
                     url = "/page/profile.jsp";
                 }
                 else {
