@@ -62,7 +62,7 @@ public class Public extends HttpServlet {
         
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        ArrayList<String> errors = new ArrayList();
+        ArrayList<String> errorList = new ArrayList();
         
         switch (action) {
             case "toLogin":
@@ -78,8 +78,8 @@ public class Public extends HttpServlet {
                 password = request.getParameter("password");
                 
                 
-                if (Authorization.IsValidLogin(username, password)) {
-                    if (Authorization.IsAuthorized(username, password)) {
+                if (Authorization.IsValidLogin(username, password, errorList)) {
+                    if (Authorization.IsAuthorized(username, password, errorList)) {
                         url = "/page/profile.jsp";
                     }
                     else {
@@ -87,8 +87,8 @@ public class Public extends HttpServlet {
                     }
                 }
                 else {
-                        url = "/page/login.jsp";
-                    }
+                    url = "/page/login.jsp";
+                }
                 break;
                
             case "register":
@@ -108,6 +108,8 @@ public class Public extends HttpServlet {
                 url = "/index.jsp";
                 break;
         }
+        
+        request.setAttribute("errorList", errorList);
         
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }

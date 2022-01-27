@@ -4,19 +4,21 @@
  */
 package controller;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author chris
  */
 public class Authorization {
     
-    protected static Boolean IsValidLogin(String username, String password) {
+    protected static Boolean IsValidLogin(String username, String password, ArrayList<String> errorList) {
         
         
         return false;
     }
     
-    protected static Boolean IsAuthorized(String username, String password) {
+    protected static Boolean IsAuthorized(String username, String password, ArrayList<String> errorList) {
         
         
         return false;
