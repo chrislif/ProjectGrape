@@ -66,29 +66,35 @@ public class Public extends HttpServlet {
         
         switch (action) {
             case "toLogin":
-                url = "/page/login.jsp";
+                url = "/page/auth/login.jsp";
                 break;
                
             case "toRegister":
-                url = "/page/register.jsp";
+                url = "/page/auth/register.jsp";
+                break;
+                
+            case "toReset":
+                url = "/page/auth/reset.jsp";
                 break;
                 
             case "authorize":
                 username = request.getParameter("username");
                 password = request.getParameter("password");
                 
-                
                 if (Authorization.IsValidLogin(username, password, errorList)) {
                     if (Authorization.IsAuthorized(username, password, errorList)) {
                         url = "/page/profile.jsp";
                     }
                     else {
-                        url = "/page/login.jsp";
+                        url = "/page/auth/login.jsp";
                     }
                 }
                 else {
-                    url = "/page/login.jsp";
+                    url = "/page/auth/login.jsp";
                 }
+                
+                request.setAttribute("username", username);
+                
                 break;
                
             case "register":
@@ -100,10 +106,14 @@ public class Public extends HttpServlet {
                     url = "/page/profile.jsp";
                 }
                 else {
-                    url = "/page/register.jsp";
+                    url = "/page/auth/register.jsp";
                 }
                 break;
                 
+            case "resetPassword":
+                url = "/page/auth/reset.jsp";
+                break;
+                    
             default:
                 url = "/index.jsp";
                 break;

@@ -32,11 +32,19 @@
                 </div>
                 <div class="gridSubContent">
                     <h2>Welcome to MathWiz!</h2>
-                    <p>Please enter your username and password to log-in.</p>
-                    <p>If you are a new user then register here:</p>
+                    <div>
+                        <p>
+                            If you are a new user then register here:
+                        </p>
+                        <form action="public" method="post">
+                            <input type="hidden" name="action" value="toRegister">
+                            <input type="submit" value="Register" class="styledButton">
+                        </form>
+                    </div>
+                    <p>If you forgot your password then click here:</p>
                     <form action="public" method="post">
-                        <input type="hidden" name="action" value="toRegister">
-                        <input type="submit" value="Register" class="styledButton">
+                        <input type="hidden" name="action" value="toReset">
+                        <input type="submit" value="Reset Password" class="styledButton">
                     </form>
                 </div>
                 <div class="gridSubContent">

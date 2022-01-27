@@ -91,6 +91,7 @@ header {
 .styledButton {
     padding: 10px 30px 10px 30px;
     margin-top: 15px;
+    margin-bottom: 15px;
     text-decoration: none;
     color: #F2F3F4;
     border: none;

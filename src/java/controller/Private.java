@@ -38,7 +38,7 @@ public class Private extends HttpServlet{
         
         switch (action) {
             default:
-                url = "/page/login.jsp";
+                url = "/page/auth/login.jsp";
                 break;
         }
         
@@ -73,7 +73,7 @@ public class Private extends HttpServlet{
                 break;
             
             default:
-                url = "/page/login.jsp";
+                url = "/page/auth/login.jsp";
                 break;
         }
         

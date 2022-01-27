@@ -14,16 +14,14 @@ enum AccountType {
 public class Account {
     private int accountID;
     private String userName;
-    private String password;
     private String nickname;
     private AccountType accountType;
     
     public Account () { }
     
-    public Account(int accountID, String userName, String password, String nickname, AccountType accountType) {
+    public Account(int accountID, String userName, String nickname, AccountType accountType) {
         this.accountID = accountID;
         this.userName = userName;
-        this.password = password;
         this.nickname = nickname;
         this.accountType = accountType;
     }
@@ -42,14 +40,6 @@ public class Account {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFullName() {

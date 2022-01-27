@@ -13,18 +13,32 @@ import java.util.ArrayList;
 public class Authorization {
     
     protected static Boolean IsValidLogin(String username, String password, ArrayList<String> errorList) {
+        Boolean isValid = true;
         
+        if(username.isEmpty()) {
+            errorList.add("Please enter a Username");
+            isValid = false;
+        }
         
-        return false;
+        if(password.isEmpty()) {
+            errorList.add("Please enter a Password");
+            isValid = false;
+        }
+        
+        return isValid;
     }
     
     protected static Boolean IsAuthorized(String username, String password, ArrayList<String> errorList) {
+        Boolean isAuthorized = true;
         
         
-        return false;
+        
+        return isAuthorized;
     }
     
     protected static Boolean RegisterUser(String username, String password, String passwordCheck) {
+        
+        
         
         return false;
     }
