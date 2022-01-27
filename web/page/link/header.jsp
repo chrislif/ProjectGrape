@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Project Grape</title>
-        <link rel="stylesheet" href="Views/link/style.css">
+        <link rel="stylesheet" href="page/link/style.css">
     </head>
     <body>
         <header>

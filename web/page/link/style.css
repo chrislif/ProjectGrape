@@ -50,7 +50,7 @@ header {
 }
 
 .navbutton:hover {
-    background-color: black
+    background-color: black;
 }
 
 .mainContent {
@@ -59,6 +59,7 @@ header {
     padding: 15px;
     background: #F2F3F4;
     box-shadow: 5px 5px 5px black;
+    border: 1px solid #DDDDDD;
     border-radius: 5px;
 }
 
@@ -68,7 +69,22 @@ header {
     padding: 15px;
     background: #F2F3F4;
     box-shadow: 5px 5px 5px black;
-    border: 1px solid #686868;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+}
+
+.gridWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.gridSubContent {
+    margin: 15px;
+    min-width: 100px;
+    padding: 15px;
+    background: #F2F3F4;
+    box-shadow: 5px 5px 5px black;
+    border: 1px solid #DDDDDD;
     border-radius: 5px;
 }
 
@@ -81,3 +97,4 @@ footer {
 .footerContent {
     margin: 15px;
 }
+
