@@ -105,8 +105,9 @@ public class Public extends HttpServlet {
                 username = request.getParameter("username");
                 password = request.getParameter("password");
                 String passwordCheck = request.getParameter("passwordCheck");
+                String userType = request.getParameter("type");
                 
-                if (Authorization.RegisterUser(username, password, passwordCheck, errorList, currentUser)) {
+                if (Authorization.RegisterUser(username, password, passwordCheck, userType, errorList, currentUser)) {
                     session.setAttribute("currentUser", currentUser);
                     url = "/page/profile.jsp";
                 }

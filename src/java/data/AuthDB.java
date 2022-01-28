@@ -70,21 +70,20 @@ public class AuthDB {
             statement = connection.prepareStatement(query);
             statement.setString(1, userName);
             resultSet = statement.executeQuery();
+            resultSet.next();
 
             if (compareHash(password, resultSet.getString("salt"), resultSet.getString("hash"))) {
                 user = new Account();
 
-                resultSet.next();
-
-                user.setAccountID(resultSet.getInt("userID"));
-                user.setUserName(resultSet.getString("username"));
+                user.setAccountID(resultSet.getInt("accountID"));
+                user.setUserName(resultSet.getString("userName"));
                 user.setNickname(resultSet.getString("nickname"));
                 user.setEmail(resultSet.getString("email"));
             }
             
             return user;
-        } catch (SQLException sqlEx) {
-            throw sqlEx;
+        } catch (SQLException ex) {
+            throw ex;
         } finally {
             try {
                 if (resultSet != null && statement != null) {

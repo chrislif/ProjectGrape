@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import data.AuthDB;
@@ -37,12 +33,22 @@ public class Authorization {
             currentUser = AuthDB.loginUser(userName, password);
             return true;
         } catch (SQLException ex) {
+            errorList.add("Invalid Credentials");
+            errorList.add(ex.getMessage());
             return false;
         }
     }
     
-    protected static Boolean RegisterUser(String username, String password, String passwordCheck, ArrayList<String> errorList, Account currentUser) {
+    protected static Boolean RegisterUser(String username, String password, String passwordCheck, String userType, ArrayList<String> errorList, Account currentUser) {
+        if (!password.equals(passwordCheck)) {
+            errorList.add("Password do not match, please reenter");
+            return false;
+        }
+        
         Account user = new Account();
+        user.setUserName(username);
+        user.setType(userType);
+        
         String hash;
         String salt = "123456";
         
@@ -54,7 +60,7 @@ public class Authorization {
         }
         
         try {
-            AuthDB.createAccount(user, username, hash);
+            AuthDB.createAccount(user, salt, hash);
             currentUser = user;
         }
         catch (SQLException ex) {
