@@ -29,12 +29,14 @@
                             <input type="submit" value="Home" class="navbutton">
                         </form>
                     </li>
-                    <li>
-                        <form action="private" method="post">
-                            <input type="hidden" name="action" value="toProfile">
-                            <input type="submit" value="Profile" class="navbutton">
-                        </form>
-                    </li>
+                    <c:if test="${currentUser != null}">
+                        <li>
+                            <form action="private" method="post">
+                                <input type="hidden" name="action" value="toProfile">
+                                <input type="submit" value="<c:out value="${currentUser.userName}" />'s Profile" class="navbutton">
+                            </form>
+                        </li>
+                    </c:if>
                     <li>
                         <form action="private" method="post">
                             <input type="hidden" name="action" value="toTest">
@@ -47,12 +49,22 @@
                             <input type="submit" value="Drill" class="navbutton">
                         </form>
                     </li>
-                    <li>
-                        <form action="public" method="post">
-                            <input type="hidden" name="action" value="toLogin">
-                            <input type="submit" value="Login" class="navbutton">
-                        </form>
-                    </li>
+                    <c:if test="${currentUser == null}">
+                        <li>
+                            <form action="public" method="post">
+                                <input type="hidden" name="action" value="toLogin">
+                                <input type="submit" value="Login" class="navbutton">
+                            </form>
+                        </li>
+                    </c:if>
+                    <c:if test="${currentUser != null}">
+                        <li>
+                            <form action="private" method="post">
+                                <input type="hidden" name="action" value="logout">
+                                <input type="submit" value="Logout" class="navbutton">
+                            </form>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
         </nav>

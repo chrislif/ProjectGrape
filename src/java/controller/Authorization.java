@@ -5,6 +5,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import model.Account;
 import java.util.ArrayList;
+import java.util.Random;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,46 +30,68 @@ public class Authorization {
         return isValid;
     }
     
-    protected static Boolean IsAuthorized(String userName, String password, ArrayList<String> errorList, Account currentUser) {
+    protected static Account authorizeUser(String userName, String password, ArrayList<String> errorList) {
         try {
-            currentUser = AuthDB.loginUser(userName, password);
-            return true;
+            return AuthDB.loginUser(userName, password);
         } catch (SQLException ex) {
             errorList.add("Invalid Credentials");
             errorList.add(ex.getMessage());
-            return false;
+            return null;
         }
     }
     
-    protected static Boolean RegisterUser(String username, String password, String passwordCheck, String userType, ArrayList<String> errorList, Account currentUser) {
+    protected static Account RegisterUser(String username, String password, String passwordCheck, String userType, ArrayList<String> errorList) {
         if (!password.equals(passwordCheck)) {
             errorList.add("Password do not match, please reenter");
-            return false;
+            return null;
         }
+        
+        try {
+            if (AuthDB.doesUserExist(username)) {
+                errorList.add("Username invalid");
+                return null;
+            }
+        }
+        catch (SQLException ex) {
+            errorList.add(ex.getMessage());
+            return null;
+        }
+        
         
         Account user = new Account();
         user.setUserName(username);
         user.setType(userType);
         
         String hash;
-        String salt = "123456";
+        String salt = randomSalt();
         
         try {
             hash = AuthDB.hashPassword(password, salt);
         } catch (NoSuchAlgorithmException ex) {
             errorList.add("Error: Unable to encrypt password");
-            return false;
+            return null;
         }
         
         try {
             AuthDB.createAccount(user, salt, hash);
-            currentUser = user;
+            Account currentUser = user;
         }
         catch (SQLException ex) {
             errorList.add(ex.getMessage());
-            return false;
+            return null;
         }
         
-        return true;
+        return user;
+    }
+    
+    private static String randomSalt(){
+        String alphanumericList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 10) {
+            int index = (int) (rnd.nextFloat() * alphanumericList.length());
+            salt.append(alphanumericList.charAt(index));
+        }
+        return salt.toString();
     }
 }

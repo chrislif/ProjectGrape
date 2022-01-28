@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
@@ -59,6 +60,8 @@ public class Private extends HttpServlet{
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         
+        Account currentUser = (Account) session.getAttribute("currentUser");
+        
         switch (action) {
             case "toProfile":
                 url = "/page/profile.jsp";
@@ -72,6 +75,11 @@ public class Private extends HttpServlet{
                 url = "/page/drill.jsp";
                 break;
             
+            case "logout":
+                url = "/page/auth/login.jsp";
+                session.setAttribute("currentUser", null);
+                break;
+                
             default:
                 url = "/page/auth/login.jsp";
                 break;

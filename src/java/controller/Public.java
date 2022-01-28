@@ -85,8 +85,9 @@ public class Public extends HttpServlet {
                 password = request.getParameter("password");
                 
                 if (Authorization.IsValidLogin(username, password, errorList)) {
-                    if (Authorization.IsAuthorized(username, password, errorList, currentUser)) {
-                        session.setAttribute("currentUser", currentUser);
+                    Account user = Authorization.authorizeUser(username, password, errorList);
+                    if (user != null) {
+                        session.setAttribute("currentUser", user);
                         url = "/page/profile.jsp";
                     }
                     else {
@@ -107,8 +108,9 @@ public class Public extends HttpServlet {
                 String passwordCheck = request.getParameter("passwordCheck");
                 String userType = request.getParameter("type");
                 
-                if (Authorization.RegisterUser(username, password, passwordCheck, userType, errorList, currentUser)) {
-                    session.setAttribute("currentUser", currentUser);
+                Account newUser = Authorization.RegisterUser(username, password, passwordCheck, userType, errorList);
+                if (newUser != null) {
+                    session.setAttribute("currentUser", newUser);
                     url = "/page/profile.jsp";
                 }
                 else {
