@@ -3,7 +3,7 @@
     Created on : Jan 26, 2022, 3:53:09 PM
     Author     : chris
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/page/link/header.jsp"/>
     <main>
         <div class="mainContent">
