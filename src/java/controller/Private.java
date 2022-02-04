@@ -68,13 +68,20 @@ public class Private extends HttpServlet{
                 break;
             
             case "toTest":
-                url = "/page/test.jsp";
+                url = "/page/assessments/test.jsp";
                 break;
                 
-            case "toDrill":
-                url = "/page/drill.jsp";
+            case "toQuiz":
+                url="/page/assessments/quiz.jsp";
                 break;
-            
+         
+            case "toDrill":
+                url = "/page/assessments/drill.jsp";
+                break;
+            case "toClass":
+                url = "/page/class.jsp";
+                break;
+                
             case "logout":
                 url = "/page/auth/login.jsp";
                 session.setAttribute("currentUser", null);
