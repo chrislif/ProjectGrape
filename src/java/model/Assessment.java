@@ -9,13 +9,13 @@ import java.util.List;
 public abstract class Assessment {
     private int assessmentID;
     private int assessmentLevel;
-    public List<String> tagList;
+    private String tag;
     public List<Question> questionList;
 
-    public Assessment(int assessmentID, int assessmentLevel, List<String> tagList, List<Question> questionList) {
+    public Assessment(int assessmentID, int assessmentLevel, String tag, List<Question> questionList) {
         this.assessmentID = assessmentID;
         this.assessmentLevel = assessmentLevel;
-        this.tagList = tagList;
+        this.tag = tag;
         this.questionList = questionList;
     }
     
@@ -33,5 +33,13 @@ public abstract class Assessment {
 
     public void setAssessmentLevel(int assessmentLevel) {
         this.assessmentLevel = assessmentLevel;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

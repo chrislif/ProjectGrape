@@ -11,8 +11,8 @@ import model.Question;
 public class Test extends Assessment{
     private int teacherID;
 
-    public Test(int assessmentID, int assessmentLevel, List<String> tagList, List<Question> questionList, int teacherID) {
-        super(assessmentID, assessmentLevel, tagList, questionList);
+    public Test(int assessmentID, int assessmentLevel, String tag, List<Question> questionList, int teacherID) {
+        super(assessmentID, assessmentLevel, tag, questionList);
         this.teacherID = teacherID;
     }
     

@@ -9,7 +9,7 @@ import model.Question;
  * @author chris
  */
 public class Drill extends Assessment{
-    public Drill(int assessmentID, int assessmentLevel, List<String> tagList, List<Question> questionList) {
-        super(assessmentID, assessmentLevel, tagList, questionList);
+    public Drill(int assessmentID, int assessmentLevel, String tag, List<Question> questionList) {
+        super(assessmentID, assessmentLevel, tag, questionList);
     }
 }
