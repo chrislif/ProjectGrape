@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -59,6 +60,7 @@ public class Private extends HttpServlet{
         String url;
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
+        ArrayList<String> errorList = new ArrayList();
         
         Account currentUser = (Account) session.getAttribute("currentUser");
         
@@ -72,6 +74,14 @@ public class Private extends HttpServlet{
                 break;
                 
             case "toQuiz":
+                url="/page/assessments/quiz.jsp";
+                break;
+                
+            case "generateQuiz":
+                String questionLevel = request.getParameter("questionLevels");;
+                
+                QuizGeneration.generateQuiz(questionLevel, errorList);
+                
                 url="/page/assessments/quiz.jsp";
                 break;
          
