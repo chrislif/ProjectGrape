@@ -109,9 +109,8 @@ public class AuthDB {
             statement = connection.prepareStatement(query);
             statement.setString(1, userName);
             resultSet = statement.executeQuery();
-            resultSet.next();
 
-            if (resultSet.getString("userName") != null) {
+            if (resultSet.next()) {
                 return true;
             }
             else {
