@@ -36,14 +36,14 @@
                                 <input type="submit" value="<c:out value="${currentUser.userName}" />'s Profile" class="navbutton">
                             </form>
                         </li>
-                    </c:if>
+                    
                         <li>
                             <form action="private" method="post">
                                 <input type="hidden" name="action" value="toClass">
                                 <input type="submit" value="Classroom" class="navbutton">
                             </form>
                         </li>
-                    
+                    </c:if>
                     <c:if test="${currentUser == null}">
                         <li>
                             <form action="public" method="post">
