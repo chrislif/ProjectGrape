@@ -6,6 +6,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/page/link/header.jsp"/>
     <main>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+        <script type="text/javascript" src="index.js"></script>
         <div class="mainContent">
             <h2>
                 Lorem Ipsum Text
@@ -23,6 +25,14 @@
                     ones who abandon their responsibilities to the fault that is 
                     soothing the soul's hardships.
                 </p>
+            </div>
+            
+            <div class="subContent">
+                <form>
+                    <label>Name: </label><input type="text" id="nameInput"><br>
+                    <input type="button" value="Hello" id="helloButton" class="styledButton"><br>
+                    <span id="output"></span>
+                </form>
             </div>
         </div>
     </main>
