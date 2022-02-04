@@ -16,7 +16,7 @@ import model.Test.Quiz;
  */
 public class QuizGeneration {
     
-    protected static Quiz generateQuiz(String questionLevel, ArrayList<String> errorList) {
+    protected static ArrayList<Question> generateQuiz(String questionLevel, ArrayList<String> errorList) {
         
         ArrayList<Question> questionList = new ArrayList();
         try {
@@ -26,9 +26,7 @@ public class QuizGeneration {
             errorList.add(ex.getMessage());
             return null;
         }
-        
-        
-        return null;
+        return questionList;
     }
     
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Question;
 
 /**
  *
@@ -79,8 +80,11 @@ public class Private extends HttpServlet{
                 
             case "generateQuiz":
                 String questionLevel = request.getParameter("questionLevels");;
+                ArrayList<Question> questionList = new ArrayList();
                 
-                QuizGeneration.generateQuiz(questionLevel, errorList);
+                questionList = QuizGeneration.generateQuiz(questionLevel, errorList);
+                
+                request.setAttribute("questionList", questionList);
                 
                 url="/page/assessments/quiz.jsp";
                 break;
