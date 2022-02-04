@@ -39,14 +39,8 @@
                     </c:if>
                     <li>
                         <form action="private" method="post">
-                            <input type="hidden" name="action" value="toTest">
-                            <input type="submit" value="Test" class="navbutton">
-                        </form>
-                    </li>
-                    <li>
-                        <form action="private" method="post">
-                            <input type="hidden" name="action" value="toDrill">
-                            <input type="submit" value="Drill" class="navbutton">
+                            <input type="hidden" name="action" value="toClass">
+                            <input type="submit" value="Classroom" class="navbutton">
                         </form>
                     </li>
                     <c:if test="${currentUser == null}">
