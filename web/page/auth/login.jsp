@@ -7,10 +7,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/page/link/header.jsp"/>
     <main>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            const errorJSON = JSON.parse('${errorList}');
+        </script>
+        <script type="text/javascript" src="page/auth/login.js"></script>
         <div class="mainContent">
-            <h2>
-                Login
-            </h2>
             <div class="gridWrapper">
                 <div class="gridSubContent">
                     <form action="public" method="post">
@@ -47,12 +49,7 @@
                         <input type="submit" value="Reset Password" class="styledButton">
                     </form>
                 </div>
-                <div class="gridSubContent">
-                    <ul class="errorList">
-                        <c:forEach items="${errorList}" var="error">
-                            <li>${error}</li>
-                        </c:forEach>
-                    </ul>
+                <div class="gridSubContent" id="errorDisplay">
                 </div>
             </div>
         </div>

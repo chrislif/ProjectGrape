@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import model.Account;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,7 +34,7 @@ public class Authorization {
             return AuthDB.loginUser(userName, password);
         } catch (SQLException ex) {
             errorList.add("Invalid Credentials");
-            errorList.add(ex.getMessage());
+            //errorList.add(ex.getMessage());
             return null;
         }
     }

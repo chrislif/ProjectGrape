@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -127,7 +128,11 @@ public class Public extends HttpServlet {
                 break;
         }
         
-        request.setAttribute("errorList", errorList);
+        Gson gson = new Gson();
+        
+        String errorListJSON = gson.toJson(errorList);
+        
+        request.setAttribute("errorList", errorListJSON);
         
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
