@@ -109,10 +109,15 @@ public class Public extends HttpServlet {
                 String passwordCheck = request.getParameter("passwordCheck");
                 String userType = request.getParameter("type");
                 
-                Account newUser = Authorization.RegisterUser(username, password, passwordCheck, userType, errorList);
-                if (newUser != null) {
-                    session.setAttribute("currentUser", newUser);
-                    url = "/page/profile.jsp";
+                if (Authorization.IsValidLogin(username, password, errorList)) {
+                    Account newUser = Authorization.RegisterUser(username, password, passwordCheck, userType, errorList);
+                    if (newUser != null) {
+                        session.setAttribute("currentUser", newUser);
+                        url = "/page/profile.jsp";
+                    }
+                    else {
+                        url = "/page/auth/register.jsp";
+                    }
                 }
                 else {
                     url = "/page/auth/register.jsp";
@@ -129,11 +134,10 @@ public class Public extends HttpServlet {
         }
         
         Gson gson = new Gson();
-        
         String errorListJSON = gson.toJson(errorList);
+        request.setAttribute("errorListJSON", errorListJSON);
         
-        request.setAttribute("errorList", errorListJSON);
-        
+        request.setAttribute("errorList", errorList);
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     

@@ -9,7 +9,7 @@
     <main>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
         <script type="text/javascript">
-            const errorJSON = JSON.parse('${errorList}');
+            const errorJSON = JSON.parse('${errorListJSON}');
         </script>
         <script type="text/javascript" src="page/auth/login.js"></script>
         <div class="mainContent">

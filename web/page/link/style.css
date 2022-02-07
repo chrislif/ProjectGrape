@@ -113,11 +113,6 @@ footer {
     margin: 15px;
 }
 
-.errorList {
-    list-style: none;
-    padding-left: 5px;
-}
-
-.errorList li {
+.errorText {
     color: red;
 }
