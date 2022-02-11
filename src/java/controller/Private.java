@@ -105,6 +105,7 @@ public class Private extends HttpServlet{
                 url = "/page/auth/login.jsp";
                 break;
         }
+       
         
         boolean isAjax = (Boolean)request.getAttribute("isAjax");
         
