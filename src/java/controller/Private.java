@@ -110,6 +110,8 @@ public class Private extends HttpServlet{
         }
        
         
+        boolean isAjax = (Boolean)request.getAttribute("isAjax");
+        
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     
