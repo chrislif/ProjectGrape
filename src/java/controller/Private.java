@@ -1,6 +1,8 @@
 package controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -62,20 +64,24 @@ public class Private extends HttpServlet{
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         ArrayList<String> errorList = new ArrayList();
+        Gson gson = new Gson();
         
         Account currentUser = (Account) session.getAttribute("currentUser");
         
         switch (action) {
             case "toProfile":
                 url = "/page/profile.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
             
             case "toTest":
                 url = "/page/assessments/test.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
                 
             case "toQuiz":
                 url="/page/assessments/quiz.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
                 
             case "generateQuiz":
@@ -84,9 +90,13 @@ public class Private extends HttpServlet{
                 
                 questionList = QuizGeneration.generateQuiz(questionLevel, errorList);
                 
-                request.setAttribute("questionList", questionList);
+                String questionListJSON = gson.toJson(questionList);
                 
-                url="/page/assessments/quiz.jsp";
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                PrintWriter responseOut = response.getWriter();
+                responseOut.print(questionListJSON);
+                responseOut.flush();
                 break;
          
             case "toDrill":
@@ -94,22 +104,22 @@ public class Private extends HttpServlet{
                 break;
             case "toClass":
                 url = "/page/class.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
                 
             case "logout":
                 url = "/page/auth/login.jsp";
                 session.setAttribute("currentUser", null);
+                getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
                 
             default:
                 url = "/page/auth/login.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
         }
-       
         
-        boolean isAjax = (Boolean)request.getAttribute("isAjax");
-        
-        getServletContext().getRequestDispatcher(url).forward(request, response);
+        //getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     
     public Private() { }
