@@ -13,7 +13,7 @@
                 Quiz
             </h2>
             
-            <div class="subContent">
+            <div class="subContent" id="subContent">
                 <label>What difficulty would you like to attempt?</label><br>
                 <select name="questionLevels" id="questionLevels">
                     <option value="1">1</option>
@@ -22,6 +22,9 @@
                 </select><br>
 
                 <input type="submit" id="startQuiz" value="Start Quiz!">
+            </div>
+            
+            <div class="quiz" id="quiz">
             </div>
         </div>
     </main>

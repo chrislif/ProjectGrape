@@ -16,8 +16,6 @@ function startQuiz() {
             var questionList = JSON.parse(result);
             
             displayQuiz(questionList);
-            
-            alert(questionList.length);
         },
         error: function (e) {
             alert(this.url);
@@ -26,7 +24,21 @@ function startQuiz() {
 }
 
 function displayQuiz(questionList) {
+     $("#subContent").hide();
+    
+    var quiz = $("#quiz");
+    
+    quiz.append('<ol> </ol>');
+    
     for(let i in questionList) {
-        
+        $('ol').append('<li>' + questionList[i].questionText+ + '</li>' + '<br>' +
+                "<input type=text id=question" + i + " class=quizQuestion>");
     }
+    quiz.append("<input type='button' id='endQuiz' onclick='endQuiz()' value='Submit Quiz!'>");
+}
+
+function endQuiz() {
+    $("#quiz").empty();
+    
+    $("#subContent").show();
 }
