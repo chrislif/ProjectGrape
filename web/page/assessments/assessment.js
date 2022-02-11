@@ -11,7 +11,9 @@ function startQuiz() {
         data: {'action' : 'generateQuiz'},
         dataType: "JSON",
         success: function(result) {
-            alert(result);
+            var questionList = JSON.parse(result);
+            
+            alert(questionList.length);
         },
         error: function (e) {
             alert(this.url);
