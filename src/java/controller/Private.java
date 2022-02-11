@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -62,6 +63,7 @@ public class Private extends HttpServlet{
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         ArrayList<String> errorList = new ArrayList();
+        Gson gson = new Gson();
         
         Account currentUser = (Account) session.getAttribute("currentUser");
         
@@ -84,7 +86,8 @@ public class Private extends HttpServlet{
                 
                 questionList = QuizGeneration.generateQuiz(questionLevel, errorList);
                 
-                request.setAttribute("questionList", questionList);
+                String questionListJSON = gson.toJson(questionList);
+                request.setAttribute("questionList", questionListJSON);
                 
                 url="/page/assessments/quiz.jsp";
                 break;

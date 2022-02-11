@@ -8,10 +8,10 @@ function startQuiz() {
     $.ajax({
         type: "POST",
         url: "private",
-        data: {'action' : 'generateQuiz', 'isAjax' : true},
+        data: {'action' : 'generateQuiz'},
         dataType: "JSON",
         success: function(result) {
-            alert('done');
+            alert(result);
         },
         error: function (e) {
             alert(this.url);
