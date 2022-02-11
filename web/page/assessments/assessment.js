@@ -8,7 +8,7 @@ function startQuiz() {
     $.ajax({
         type: "POST",
         url: "private",
-        data: {'action' : 'generateQuiz', 'ajax' : true},
+        data: {'action' : 'generateQuiz', 'isAjax' : true},
         dataType: "JSON",
         success: function(result) {
             alert('done');
