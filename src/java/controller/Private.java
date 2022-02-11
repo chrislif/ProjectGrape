@@ -85,15 +85,17 @@ public class Private extends HttpServlet{
                 break;
                 
             case "generateQuiz":
-                String questionLevel = request.getParameter("questionLevels");;
+                String questionLevel = request.getParameter("questionLevels");
                 ArrayList<Question> questionList = new ArrayList();
                 
                 questionList = QuizGeneration.generateQuiz(questionLevel, errorList);
+                
                 
                 String questionListJSON = gson.toJson(questionList);
                 
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
+                
                 PrintWriter responseOut = response.getWriter();
                 responseOut.print(questionListJSON);
                 responseOut.flush();
