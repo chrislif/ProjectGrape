@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2022 at 08:01 PM
+-- Generation Time: Feb 11, 2022 at 08:12 PM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- PHP Version: 7.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`accountID`, `userName`, `nickname`, `accountType`, `salt`, `hash`, `email`) VALUES
-(8, 'Chris', NULL, 'Student', 'J9WRSKNI8Z', 'E96655AED50C0994273204E4671B14CD74B2E2FD43ADCB8730705C6DC73B7B87', NULL);
+(8, 'Chris', NULL, 'Student', 'J9WRSKNI8Z', 'E96655AED50C0994273204E4671B14CD74B2E2FD43ADCB8730705C6DC73B7B87', NULL),
+(9, 'David', NULL, 'Student', '8JRL6RQGPA', 'EF5F57568AC917FD396C9C14CB681B4662CDBAD7905374BCE6EFD1E553D14CB7', NULL);
 
 -- --------------------------------------------------------
 
@@ -81,6 +82,21 @@ CREATE TABLE `question` (
   `tag` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `question`
+--
+
+INSERT INTO `question` (`questionID`, `questionLevel`, `questionText`, `questionAnswer`, `tag`) VALUES
+(1, 1, '1 + 1 ', '2', 'Addition'),
+(2, 1, '5 + 5', '10', 'Addition'),
+(3, 1, '2 + 2', '4', 'Addition'),
+(4, 1, '5 - 3', '2', 'Subtraction'),
+(5, 1, '10 - 5', '5', 'Subtraction'),
+(6, 1, '1 * 1', '1', 'Multiplication'),
+(7, 1, '2 * 2', '4', 'Multiplication'),
+(8, 1, '4 / 2', '2', 'Division'),
+(9, 1, '25 / 5', '5', 'Division');
+
 -- --------------------------------------------------------
 
 --
@@ -118,13 +134,13 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `accountID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `accountID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `questionID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `questionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
