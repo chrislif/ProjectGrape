@@ -9,9 +9,9 @@
 <jsp:include page="/page/link/header.jsp"/>
     <main>
         <div class="mainContent">
-            <h2>
-                Profile
-            </h2>
+            <h1 class="headerContent">
+                <c:out value="${currentUser.type}"/> - Profile
+            </h1>
             <p>
                 <c:out value="${currentUser.userName}" />
             </p>

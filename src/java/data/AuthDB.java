@@ -79,6 +79,7 @@ public class AuthDB {
                 user.setUserName(resultSet.getString("userName"));
                 user.setNickname(resultSet.getString("nickname"));
                 user.setEmail(resultSet.getString("email"));
+                user.setType(resultSet.getString("accountType"));
             }
             
             return user;
