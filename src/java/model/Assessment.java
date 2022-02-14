@@ -1,6 +1,6 @@
 package model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -10,9 +10,9 @@ public abstract class Assessment {
     private int assessmentID;
     private int assessmentLevel;
     private String tag;
-    public List<Question> questionList;
+    public ArrayList<Question> questionList;
 
-    public Assessment(int assessmentID, int assessmentLevel, String tag, List<Question> questionList) {
+    public Assessment(int assessmentID, int assessmentLevel, String tag, ArrayList<Question> questionList) {
         this.assessmentID = assessmentID;
         this.assessmentLevel = assessmentLevel;
         this.tag = tag;

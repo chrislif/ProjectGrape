@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
-import model.Question;
+import model.Test.Quiz;
 
 /**
  *
@@ -86,12 +86,10 @@ public class Private extends HttpServlet{
                 
             case "generateQuiz":
                 String questionLevel = request.getParameter("questionLevels");
-                ArrayList<Question> questionList = new ArrayList();
                 
-                questionList = QuizGeneration.generateQuiz(questionLevel, errorList);
+                Quiz newQuiz = QuizGeneration.generateQuiz(questionLevel, errorList);
                 
-                
-                String questionListJSON = gson.toJson(questionList);
+                String questionListJSON = gson.toJson(newQuiz.questionList);
                 
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
