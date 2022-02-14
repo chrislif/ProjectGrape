@@ -64,9 +64,7 @@ public class GrapeDB {
     public static void createAssessment(Assessment assessment, int assessmentLevel, String tag) throws SQLException{
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        PreparedStatement ps = null;
-        ResultSet resultSet = null;
-        
+        PreparedStatement ps = null;  
         
         String query 
                 = "Insert into assessment (assessmentID, assessmentLevel, tag) "
@@ -89,4 +87,42 @@ public class GrapeDB {
             }
         }
    }
+
+    public static Assessment getAssessment(int assessmentID) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String query = "Select * from assessment "
+                + "Where assessmentID = ? ";
+        
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, assessmentID);
+            rs = ps.executeQuery();
+            
+            Assessment as = null;
+            
+            if (rs.next()){
+                as.setAssessmentID(rs.getInt("assessmentID"));
+                as.setAssessmentLevel(rs.getInt("assessmentLevel"));
+                as.setTag(rs.getString("assessmentTag"));
+            }
+            
+            return as;
+            
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+                pool.freeConnection(connection);
+                
+            }catch (Exception e) {
+                throw e;
+            }
+        }
+    }
 }
