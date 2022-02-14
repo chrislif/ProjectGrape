@@ -12,4 +12,8 @@ public class Quiz extends Assessment{
     public Quiz(int assessmentID, int assessmentLevel, String tag, ArrayList<Question> questionList) {
         super(assessmentID, assessmentLevel, tag, questionList);
     }
+
+    public Quiz() {
+    }
+
 }

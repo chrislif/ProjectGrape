@@ -4,8 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import model.Assessment;
 import model.Question;
+import model.Test.Quiz;
 
 /**
  *
@@ -56,4 +61,32 @@ public class GrapeDB {
         return questionList;
     }
     
+    public static void createAssessment(Assessment assessment, int assessmentLevel, String tag) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet resultSet = null;
+        
+        
+        String query 
+                = "Insert into assessment (assessmentID, assessmentLevel, tag) "
+                + "valus (?, ?, ?)";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, assessment.getAssessmentID());
+            ps.setInt(2, assessment.getAssessmentLevel());
+            ps.setString(3, assessment.getTag());
+            ps.executeUpdate();
+            
+        } catch (SQLException sqlEx){
+            throw sqlEx;
+        } finally {
+            try {
+                ps.close();
+                pool.freeConnection(connection);
+            } catch (SQLException ex){
+                throw ex;
+            }
+        }
+   }
 }
