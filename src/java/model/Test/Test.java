@@ -1,6 +1,6 @@
 package model.Test;
 
-import java.util.List;
+import java.util.ArrayList;
 import model.Assessment;
 import model.Question;
 
@@ -11,7 +11,7 @@ import model.Question;
 public class Test extends Assessment{
     private int teacherID;
 
-    public Test(int assessmentID, int assessmentLevel, String tag, List<Question> questionList, int teacherID) {
+    public Test(int assessmentID, int assessmentLevel, String tag, ArrayList<Question> questionList, int teacherID) {
         super(assessmentID, assessmentLevel, tag, questionList);
         this.teacherID = teacherID;
     }

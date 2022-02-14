@@ -1,6 +1,6 @@
 package model.Test;
 
-import java.util.List;
+import java.util.ArrayList;
 import model.Assessment;
 import model.Question;
 
@@ -9,7 +9,7 @@ import model.Question;
  * @author chris
  */
 public class Drill extends Assessment{
-    public Drill(int assessmentID, int assessmentLevel, String tag, List<Question> questionList) {
+    public Drill(int assessmentID, int assessmentLevel, String tag, ArrayList<Question> questionList) {
         super(assessmentID, assessmentLevel, tag, questionList);
     }
 }

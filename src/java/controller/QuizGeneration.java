@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 import data.GrapeDB;
 import java.sql.SQLException;
@@ -16,17 +11,22 @@ import model.Test.Quiz;
  */
 public class QuizGeneration {
     
-    protected static ArrayList<Question> generateQuiz(String questionLevel, ArrayList<String> errorList) {
+    protected static Quiz generateQuiz(String questionLevel, ArrayList<String> errorList) {
         
-        ArrayList<Question> questionList = new ArrayList();
+        ArrayList<Question> questionList = createQuestionList(questionLevel, errorList);
+        
+        Quiz newQuiz = new Quiz(0, 0, "addition", questionList);
+        
+        return newQuiz;
+    }
+    
+    protected static ArrayList<Question> createQuestionList(String questionLevel, ArrayList<String> errorList) {
         try {
-            questionList = GrapeDB.generateQuestionList(questionLevel);
+            return GrapeDB.generateQuestionList(questionLevel);
         } catch (SQLException ex) {
             errorList.add("Generation Error");
             errorList.add(ex.getMessage());
             return null;
         }
-        return questionList;
     }
-    
 }
