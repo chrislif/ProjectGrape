@@ -12,9 +12,17 @@
             <h1 class="headerContent">
                 <c:out value="${currentUser.type}"/> - Profile
             </h1>
-            <p>
-                <c:out value="${currentUser.userName}" />
-            </p>
+            <div class="subContent">
+                <h2>
+                    <c:out value="${currentUser.userName}" />
+                </h2>
+                <p>
+                    Email: <c:out value="${currentUser.email}" />
+                </p>
+            </div>
+            <div class="subContent">
+                <h2>Grades</h2>
+            </div>
         </div>
     </main>
 <jsp:include page="/page/link/footer.jsp"/>

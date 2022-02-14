@@ -103,6 +103,7 @@ public class Private extends HttpServlet{
          
             case "toDrill":
                 url = "/page/assessments/drill.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
             case "toClass":
                 url = "/page/class.jsp";
