@@ -73,22 +73,22 @@ public class Private extends HttpServlet{
                 url = "/page/profile.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
-            
+
             case "toTest":
                 url = "/page/assessments/test.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
-                
+
             case "toQuiz":
                 url="/page/assessments/quiz.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
-                
+
             case "generateQuiz":
                 String questionLevel = request.getParameter("questionLevels");
+                String questionType = request.getParameter("questionType");
                 
-                Quiz newQuiz = QuizGeneration.generateQuiz(questionLevel, errorList);
-                
+                Quiz newQuiz = QuizGeneration.generateQuiz(questionLevel, questionType, errorList);
                 String questionListJSON = gson.toJson(newQuiz.questionList);
                 
                 response.setContentType("application/json");
@@ -98,22 +98,23 @@ public class Private extends HttpServlet{
                 responseOut.print(questionListJSON);
                 responseOut.flush();
                 break;
-         
+
             case "toDrill":
                 url = "/page/assessments/drill.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
+
             case "toClass":
                 url = "/page/class.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
-                
+
             case "logout":
                 url = "/page/auth/login.jsp";
                 session.setAttribute("currentUser", null);
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
-                
+
             default:
                 url = "/page/auth/login.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
