@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2022 at 08:12 PM
+-- Generation Time: Feb 14, 2022 at 09:10 PM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.24
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -95,7 +95,41 @@ INSERT INTO `question` (`questionID`, `questionLevel`, `questionText`, `question
 (6, 1, '1 * 1', '1', 'Multiplication'),
 (7, 1, '2 * 2', '4', 'Multiplication'),
 (8, 1, '4 / 2', '2', 'Division'),
-(9, 1, '25 / 5', '5', 'Division');
+(9, 1, '25 / 5', '5', 'Division'),
+(10, 1, '3 + 3', '6', 'Addition'),
+(11, 1, '4 + 4', '8', 'Addition'),
+(12, 1, '6 + 6', '12', 'Addition'),
+(13, 1, '7 + 7', '14', 'Addition'),
+(14, 1, '8 + 8', '16', 'Addition'),
+(15, 1, '9 + 9', '18', 'Addition'),
+(16, 1, '10 + 10', '20', 'Addition'),
+(17, 1, '9 - 3', '6', 'Subtraction'),
+(18, 1, '2 - 2', '0', 'Subtraction'),
+(19, 1, '8 - 1', '7', 'Subtraction'),
+(20, 1, '3 - 0', '3', 'Subtraction'),
+(21, 1, '7 - 6', '1', 'Subtraction'),
+(22, 1, '10 - 6', '4', 'Subtraction'),
+(23, 1, '4 - 2', '2', 'Subtraction'),
+(24, 1, '5 - 0', '5', 'Subtraction'),
+(25, 1, '9 - 7', '2', 'Subtraction'),
+(26, 1, '6 - 1', '5', 'Subtraction'),
+(27, 1, '8 - 8', '0', 'Subtraction'),
+(28, 1, '8 * 5', '40', 'Multiplication'),
+(29, 1, '7 * 4', '28', 'Multiplication'),
+(30, 1, '6 * 3', '18', 'Multiplication'),
+(31, 1, '5 * 2', '10', 'Multiplication'),
+(32, 1, '4 * 1', '4', 'Multiplication'),
+(33, 1, '3 * 8', '24', 'Multiplication'),
+(34, 1, '2 * 7', '14', 'Multiplication'),
+(35, 1, '1 * 6', '6', 'Multiplication'),
+(36, 1, '8 / 2', '4', 'Division'),
+(37, 1, '9 / 3', '3', 'Division'),
+(38, 1, '16 / 4', '4', 'Division'),
+(39, 1, '10 / 5', '2', 'Division'),
+(40, 1, '18 / 2', '9', 'Division'),
+(41, 1, '3 / 1', '3', 'Division'),
+(42, 1, '12 / 6', '2', 'Division'),
+(43, 1, '9 / 9', '1', 'Division');
 
 -- --------------------------------------------------------
 
@@ -140,7 +174,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `questionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `questionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

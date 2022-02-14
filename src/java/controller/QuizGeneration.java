@@ -11,16 +11,13 @@ import model.Test.Quiz;
  */
 public class QuizGeneration {
     
-    protected static Quiz generateQuiz(String questionLevel, ArrayList<String> errorList) {
+    protected static Quiz generateQuiz(String questionLevel, String questionType, ArrayList<String> errorList) {
+        ArrayList<Question> questionList = createQuestionList(questionLevel, questionType, errorList);
         
-        ArrayList<Question> questionList = createQuestionList(questionLevel, errorList);
-        
-        Quiz newQuiz = new Quiz(0, 0, "addition", questionList);
-        
-        return newQuiz;
+        return new Quiz(0, 0, "Addition", questionList);
     }
     
-    protected static ArrayList<Question> createQuestionList(String questionLevel, ArrayList<String> errorList) {
+    protected static ArrayList<Question> createQuestionList(String questionLevel, String questionType, ArrayList<String> errorList) {
         try {
             return GrapeDB.generateQuestionList(questionLevel);
         } catch (SQLException ex) {
