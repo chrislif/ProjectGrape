@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import model.Assessment;
+import model.AssessmentQuestions;
 import model.Question;
+import model.Score;
 import model.Test.Quiz;
 
 /**
@@ -17,24 +19,23 @@ import model.Test.Quiz;
  * @author chris
  */
 public class GrapeDB {
-    
-    public static ArrayList<Question> generateQuestionList(String questionLevel) throws SQLException{
+
+    public static ArrayList<Question> generateQuestionList(String questionLevel) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        
+
         ArrayList<Question> questionList = new ArrayList();
-        
+
         String query = "SELECT * FROM question WHERE questionLevel = ?";
         try {
             statement = connection.prepareStatement(query);
             statement.setString(1, questionLevel);
             resultSet = statement.executeQuery();
-            
+
             Question question = null;
-            
-            
+
             while (resultSet.next()) {
                 question = new Question();
                 question.setQuestionID(resultSet.getInt("questionID"));
@@ -42,7 +43,7 @@ public class GrapeDB {
                 question.setQuestionText(resultSet.getString("questionText"));
                 question.setQuestionAnswer(resultSet.getString("questionAnswer"));
                 question.setTag(resultSet.getString("tag"));
-                
+
                 questionList.add(question);
             }
         } catch (SQLException ex) {
@@ -60,13 +61,13 @@ public class GrapeDB {
         }
         return questionList;
     }
-    
-    public static void createAssessment(Assessment assessment, int assessmentLevel, String tag) throws SQLException{
+
+    public static void createAssessment(Assessment assessment) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        PreparedStatement ps = null;  
-        
-        String query 
+        PreparedStatement ps = null;
+
+        String query
                 = "Insert into assessment (assessmentID, assessmentLevel, tag) "
                 + "valus (?, ?, ?)";
         try {
@@ -75,43 +76,43 @@ public class GrapeDB {
             ps.setInt(2, assessment.getAssessmentLevel());
             ps.setString(3, assessment.getTag());
             ps.executeUpdate();
-            
-        } catch (SQLException sqlEx){
+
+        } catch (SQLException sqlEx) {
             throw sqlEx;
         } finally {
             try {
                 ps.close();
                 pool.freeConnection(connection);
-            } catch (SQLException ex){
+            } catch (SQLException ex) {
                 throw ex;
             }
         }
-   }
+    }
 
     public static Assessment getAssessment(int assessmentID) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+
         String query = "Select * from assessment "
                 + "Where assessmentID = ? ";
-        
+
         try {
             ps = connection.prepareStatement(query);
             ps.setInt(1, assessmentID);
             rs = ps.executeQuery();
-            
+
             Assessment as = null;
-            
-            if (rs.next()){
+
+            if (rs.next()) {
                 as.setAssessmentID(rs.getInt("assessmentID"));
                 as.setAssessmentLevel(rs.getInt("assessmentLevel"));
                 as.setTag(rs.getString("assessmentTag"));
             }
-            
+
             return as;
-            
+
         } catch (SQLException ex) {
             throw ex;
         } finally {
@@ -119,8 +120,139 @@ public class GrapeDB {
                 rs.close();
                 ps.close();
                 pool.freeConnection(connection);
-                
-            }catch (Exception e) {
+
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+    }
+
+    public static void addScore(Score score) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+
+        String query
+                = "Insert into score (accountID, assessmentID, gradePercent) "
+                + "valus (?, ?, ?)";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, score.getAccountID());
+            ps.setInt(2, score.getAssessmentID());
+            ps.setDouble(3, score.getGradePercent());
+            ps.executeUpdate();
+
+        } catch (SQLException sqlEx) {
+            throw sqlEx;
+        } finally {
+            try {
+                ps.close();
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+
+    public static Score getScore(int accountID, int assessmentID) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String query = "Select * from score "
+                + "Where accountID = ? and assessmentID = ?";
+
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, assessmentID);
+            rs = ps.executeQuery();
+
+            Score s = null;
+
+            if (rs.next()) {
+                s.setAccountID(rs.getInt("scoreAccountID"));
+                s.setAssessmentID(rs.getInt("scoreAssessmentID"));
+                s.setGradePercent(rs.getDouble("scorePercent"));
+
+            }
+
+            return s;
+
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+                pool.freeConnection(connection);
+
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+    }
+
+    public static void addAssessmentQuesiton(AssessmentQuestions assessmentQuestion) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+
+        String query
+                = "Insert into assessmentquestions (assessmentID, questionID) "
+                + "valus (?, ?)";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, assessmentQuestion.getAssessmentID());
+            ps.setInt(2, assessmentQuestion.getQuestionID());
+            ps.executeUpdate();
+
+        } catch (SQLException sqlEx) {
+            throw sqlEx;
+        } finally {
+            try {
+                ps.close();
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+
+    public static AssessmentQuestions getAssessmentQuestions(int assessmentID) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String query
+                = "select questionID, questionText from assessmentquestions "
+                + "Where assessmentID = ? "
+                + "Inner Join question on assessmentquestions.questionID = question.questionID";
+
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, assessmentID);
+            rs = ps.executeQuery();
+
+            AssessmentQuestions aq = null;
+
+            if (rs.next()) {
+                aq.setAssessmentID(rs.getInt("assessmentID"));
+                aq.setQuestionID(rs.getInt("questionID"));
+            }
+
+            return aq;
+
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+                pool.freeConnection(connection);
+
+            } catch (Exception e) {
                 throw e;
             }
         }
