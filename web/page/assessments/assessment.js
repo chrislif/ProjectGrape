@@ -26,18 +26,27 @@ function startQuiz() {
 function displayQuiz(questionList) {
     $("#subContent").hide();
     
-    var quiz = $("#quiz");
+    var quiz = $("#quiz-container");
     
-    quiz.append('<div class="subContent"><ol> </ol></div>');
+    quiz.append('<div class="subContent"><ol id="quiz"> </ol></div>');
     
     for(let i in questionList) {
-        $('ol').append('<li>' + questionList[i].questionText + '</li>' + '<br>' +
+        $('#quiz').append('<li>' + questionList[i].questionText + '</li>' + '<br>' +
                 "<input type=text id=question" + i + " class=quizQuestion>");
     }
     quiz.append("<input type='button' class='styledButton' id='endQuiz' onclick='endQuiz()' value='Submit Quiz!'>");
 }
 
 function endQuiz() {
+    
+    var quizQuestions = $(".quizQuestion");
+    for (let question of quizQuestions) {
+        alert($(question.val()));
+    }
+    
+}
+
+function clearQuiz() {
     $("#quiz").empty();
     
     $("#subContent").show();

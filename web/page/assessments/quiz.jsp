@@ -20,11 +20,18 @@
                     <option value="2">2</option>
                     <option value="3">3</option>
                 </select><br>
+                
+                <select name="questionType" id="questionType">
+                    <option value="Addition">Addition</option>
+                    <option value="Subtraction">Subtraction</option>
+                    <option value="Multiplication">Multiplication</option>
+                    <option value="Division">Division</option>
+                </select>
 
                 <input type="submit" id="startQuiz" value="Start Quiz!">
             </div>
             
-            <div class="quiz" id="quiz">
+            <div class="quiz" id="quiz-container">
             </div>
         </div>
     </main>
