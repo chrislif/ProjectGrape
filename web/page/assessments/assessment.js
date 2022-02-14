@@ -31,7 +31,7 @@ function displayQuiz(questionList) {
     quiz.append('<div class="subContent"><ol> </ol></div>');
     
     for(let i in questionList) {
-        $('ol').append('<li>' + questionList[i].questionText+ + '</li>' + '<br>' +
+        $('ol').append('<li>' + questionList[i].questionText + '</li>' + '<br>' +
                 "<input type=text id=question" + i + " class=quizQuestion>");
     }
     quiz.append("<input type='button' class='styledButton' id='endQuiz' onclick='endQuiz()' value='Submit Quiz!'>");
