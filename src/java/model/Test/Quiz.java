@@ -13,7 +13,4 @@ public class Quiz extends Assessment{
         super(assessmentID, assessmentLevel, tag, questionList);
     }
 
-    public Quiz() {
-    }
-
 }
