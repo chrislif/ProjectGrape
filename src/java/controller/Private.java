@@ -16,8 +16,8 @@ import model.Test.Quiz;
  *
  * @author chris
  */
-public class Private extends HttpServlet{
-    
+public class Private extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,16 +40,16 @@ public class Private extends HttpServlet{
         String url;
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        
+
         switch (action) {
             default:
                 url = "/page/auth/login.jsp";
                 break;
         }
-        
+
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
-    
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -65,13 +65,19 @@ public class Private extends HttpServlet{
         HttpSession session = request.getSession();
         ArrayList<String> errorList = new ArrayList();
         Gson gson = new Gson();
-        
+
         Account currentUser = (Account) session.getAttribute("currentUser");
-        
+
         switch (action) {
             case "toProfile":
                 url = "/page/profile.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
+                break;
+
+            case "updateEmail":
+                String email = request.getParameter("emailInput");
+                
+
                 break;
 
             case "toTest":
@@ -80,20 +86,20 @@ public class Private extends HttpServlet{
                 break;
 
             case "toQuiz":
-                url="/page/assessments/quiz.jsp";
+                url = "/page/assessments/quiz.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
 
             case "generateQuiz":
                 String questionLevel = request.getParameter("questionLevels");
                 String questionType = request.getParameter("questionType");
-                
+
                 Quiz newQuiz = QuizGeneration.generateQuiz(questionLevel, questionType, errorList);
                 String questionListJSON = gson.toJson(newQuiz.questionList);
-                
+
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                
+
                 PrintWriter responseOut = response.getWriter();
                 responseOut.print(questionListJSON);
                 responseOut.flush();
@@ -120,12 +126,13 @@ public class Private extends HttpServlet{
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
         }
-        
+
         //getServletContext().getRequestDispatcher(url).forward(request, response);
     }
-    
-    public Private() { }
-    
+
+    public Private() {
+    }
+
     /**
      * Returns a short description of the servlet.
      *

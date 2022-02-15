@@ -132,6 +132,39 @@ public class AuthDB {
         }
     }
     
+    public static Account updateEmail(String userName, String email) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null; 
+        ResultSet resultSet = null;
+        Account user = null;
+        
+        String query = "UPDATE account SET email = ? WHERE username = ?";
+        
+        try{
+           statement = connection.prepareStatement(query);
+           statement.setString(1, userName);
+           statement.setString(2, email);
+           resultSet = statement.executeQuery();
+           resultSet.next();
+           
+           return user;
+           
+        }catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException e) {
+                throw e;
+            }
+        }
+    }
+    
    /* I'm using this post as a reference for the hashing methodology:
     * https://stackoverflow.com/questions/20832008/jsp-simple-password-encryption-decryption
     * and this is the information for reference to the SALT:

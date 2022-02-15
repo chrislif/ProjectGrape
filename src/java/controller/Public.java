@@ -15,7 +15,7 @@ import model.Account;
  * @author chris
  */
 public class Public extends HttpServlet {
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,16 +38,16 @@ public class Public extends HttpServlet {
         String url;
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        
+
         switch (action) {
             default:
                 url = "/index.jsp";
                 break;
         }
-        
+
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
-    
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -61,88 +61,85 @@ public class Public extends HttpServlet {
         String url;
         String username;
         String password;
-        
+
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         ArrayList<String> errorList = new ArrayList();
-        
+
         Account currentUser = (Account) session.getAttribute("currentUser");
-        
+
         switch (action) {
             case "toLogin":
                 url = "/page/auth/login.jsp";
                 break;
-               
+
             case "toRegister":
                 url = "/page/auth/register.jsp";
                 break;
-                
+
             case "toReset":
                 url = "/page/auth/reset.jsp";
                 break;
-                
+
             case "authorize":
                 username = request.getParameter("username");
                 password = request.getParameter("password");
-                
+
                 if (Authorization.IsValidLogin(username, password, errorList)) {
                     Account user = Authorization.authorizeUser(username, password, errorList);
                     if (user != null) {
                         session.setAttribute("currentUser", user);
                         url = "/page/profile.jsp";
-                    }
-                    else {
+                    } else {
                         url = "/page/auth/login.jsp";
                     }
-                }
-                else {
+                } else {
                     url = "/page/auth/login.jsp";
                 }
-                
+
                 request.setAttribute("username", username);
-                
+
                 break;
-               
+
             case "register":
                 username = request.getParameter("username");
                 password = request.getParameter("password");
                 String passwordCheck = request.getParameter("passwordCheck");
                 String userType = request.getParameter("type");
-                
+
                 if (Authorization.IsValidLogin(username, password, errorList)) {
                     Account newUser = Authorization.RegisterUser(username, password, passwordCheck, userType, errorList);
                     if (newUser != null) {
                         session.setAttribute("currentUser", newUser);
                         url = "/page/profile.jsp";
-                    }
-                    else {
+                    } else {
                         url = "/page/auth/register.jsp";
                     }
-                }
-                else {
+                } else {
                     url = "/page/auth/register.jsp";
                 }
                 break;
-                
+
             case "resetPassword":
                 url = "/page/auth/reset.jsp";
                 break;
-                    
+
             default:
                 url = "/index.jsp";
                 break;
         }
-        
+
         Gson gson = new Gson();
         String errorListJSON = gson.toJson(errorList);
         request.setAttribute("errorListJSON", errorListJSON);
-        
+
         request.setAttribute("errorList", errorList);
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
-    
-    public Public() { }
-    
+
+    public Public() {
+    }
+
     /**
      * Returns a short description of the servlet.
      *
