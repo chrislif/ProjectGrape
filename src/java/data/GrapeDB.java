@@ -28,7 +28,7 @@ public class GrapeDB {
 
         ArrayList<Question> questionList = new ArrayList();
 
-        String query = "SELECT * FROM question WHERE questionLevel = ? and quesionTag = ?";
+        String query = "SELECT * FROM question WHERE questionLevel = ? AND tag = ?";
         try {
             statement = connection.prepareStatement(query);
             statement.setString(1, questionLevel);
