@@ -77,14 +77,14 @@ public class Private extends HttpServlet {
 
             case "updateEmail":
                 String email = request.getParameter("emailInput");
+                currentUser.setEmail(email);
                 url = "/page/profile.jsp";
-                getServletContext().getRequestDispatcher(url).forward(request, response);
                 try {
                     AuthDB.updateEmail(currentUser.getUserName(), email);
                 } catch (Exception ex) {
                     errorList.add("Error");
                 }
-
+                getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
 
             case "toTest":
@@ -133,6 +133,7 @@ public class Private extends HttpServlet {
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
         }
+        session.setAttribute("currentUser", currentUser);
 
         //getServletContext().getRequestDispatcher(url).forward(request, response);
     }
