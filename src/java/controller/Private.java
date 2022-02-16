@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import data.AuthDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -76,7 +77,13 @@ public class Private extends HttpServlet {
 
             case "updateEmail":
                 String email = request.getParameter("emailInput");
-                
+                url = "/page/profile.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+                try {
+                    AuthDB.updateEmail(currentUser.getUserName(), email);
+                } catch (Exception ex) {
+                    errorList.add("Error");
+                }
 
                 break;
 
