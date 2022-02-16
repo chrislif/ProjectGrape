@@ -219,12 +219,14 @@ public class GrapeDB {
         }
     }
 
-    public static AssessmentQuestions getAssessmentQuestions(int assessmentID) throws SQLException {
+    public static ArrayList<AssessmentQuestions> getAssessmentQuestions(int assessmentID) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
+        ArrayList<AssessmentQuestions> questions = new ArrayList();
+        
         String query
                 = "select questionID, questionText from assessmentquestions "
                 + "Where assessmentID = ? "
@@ -237,12 +239,14 @@ public class GrapeDB {
 
             AssessmentQuestions aq = null;
 
-            if (rs.next()) {
+            while (rs.next()) {
                 aq.setAssessmentID(rs.getInt("assessmentID"));
                 aq.setQuestionID(rs.getInt("questionID"));
+                
+                questions.add(aq);
             }
 
-            return aq;
+            return questions;
 
         } catch (SQLException ex) {
             throw ex;
