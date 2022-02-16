@@ -116,3 +116,11 @@ footer {
 .errorText {
     color: red;
 }
+
+.incorrectAnswer {
+    border-color: red;
+}
+
+.correctAnswer {
+    border-color: lightgreen;
+}
