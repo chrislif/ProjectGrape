@@ -132,23 +132,22 @@ public class AuthDB {
         }
     }
     
-    public static Account updateEmail(String userName, String email) throws SQLException{
+    public static int updateEmail(String userName, String email) throws SQLException{
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement statement = null; 
         ResultSet resultSet = null;
         Account user = null;
         
-        String query = "UPDATE account SET email = ? WHERE username = ?";
+        String query = "UPDATE account SET email = ? WHERE userName = ?";
         
         try{
            statement = connection.prepareStatement(query);
-           statement.setString(1, userName);
-           statement.setString(2, email);
-           resultSet = statement.executeQuery();
-           resultSet.next();
+           statement.setString(1, email);
+           statement.setString(2, userName);
+
            
-           return user;
+           return statement.executeUpdate();
            
         }catch (SQLException ex) {
             throw ex;

@@ -19,7 +19,7 @@ public class QuizGeneration {
     
     protected static ArrayList<Question> createQuestionList(String questionLevel, String questionType, ArrayList<String> errorList) {
         try {
-            return GrapeDB.generateQuestionList(questionLevel);
+            return GrapeDB.generateQuestionList(questionLevel, questionType);
         } catch (SQLException ex) {
             errorList.add("Generation Error");
             errorList.add(ex.getMessage());

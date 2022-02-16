@@ -21,10 +21,9 @@
             </p>
             <br>
             <p>
-                <input type="text" name="emailInput" value="${email}"><br>
-                
             <form action="private" method="post">
                 <input type="hidden" name="action" value="updateEmail">
+                <input type="text" name="emailInput" value="${currentUser.email}">
                 <input type="submit" value="Update Email" class="styledButton">
             </form>
 
