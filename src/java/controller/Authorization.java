@@ -83,6 +83,26 @@ public class Authorization {
         return user;
     }
     
+    protected static void parseClassroom(Account account, String classroomName){
+        if(account.getType() == "Teacher"){
+            createClassroom(account, classroomName);
+        }
+        else if(account.getType() == "Student"){
+            joinClassroom(account, classroomName);
+        }
+        else{
+            
+        }
+    }
+    
+    private static void createClassroom(Account account, String classroomName){
+        
+    }
+    
+    private static void joinClassroom(Account account, String classroomName){
+        
+    }
+    
     private static String randomSalt(){
         String alphanumericList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();

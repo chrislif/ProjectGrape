@@ -47,6 +47,12 @@
                             <input type="radio" name="type" value="Teacher">
                             <label for="Teacher">Teacher</label>
                         </div>
+                        <div style="margin-top: 15px;">
+                            <p>
+                                Classroom: 
+                            </p>
+                            <input type="text" name="classroom">
+                        </div>
                         <input type="submit" value="Register" class="styledButton">
                     </form>
                 </div>
