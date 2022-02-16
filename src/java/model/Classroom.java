@@ -16,6 +16,15 @@ public class Classroom {
     private Account teacherID;
     public ArrayList<Account> studentList;
 
+    public Classroom() {
+    }
+
+    public Classroom(int classroomID, Account teacherID, ArrayList<Account> studentList) {
+        this.classroomID = classroomID;
+        this.teacherID = teacherID;
+        this.studentList = studentList;
+    }
+
     public int getClassroomID() {
         return classroomID;
     }

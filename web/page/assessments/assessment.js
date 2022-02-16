@@ -42,8 +42,9 @@ function displayQuiz(questionList) {
     var quiz = $("#quiz-container");
     
     quiz.show();
-    
-    quiz.append('<div class="subContent"><ol id="quiz"> </ol></div>');
+    quiz.append('<div class="subContent"> <div id="errorList"></div>\n\
+                    <ol id="quiz"> </ol>\n\
+                    </div>');
     
     for(let i in questionList) {
         $('#quiz').append('<li>' + questionList[i].questionText + '<br>' +
@@ -53,33 +54,31 @@ function displayQuiz(questionList) {
 }
 
 function processQuiz() {
-    
     var quizAnswerTexts = $("input[type='text']");
     
+    var isValid = validateAnswers();
     var scoreList = [];
-    
     var answers = [];
     
     //Add Validation
-    
-    for (let i = 0; i < quizAnswerTexts.length; i++  ) {
-        answers.push(parseInt(quizAnswerTexts[i].value));
+    if (isValid === false) {
+        $("#errorList").val('<p>Make sure every answer is filled out & is a Valid INTEGER</p>');
+    } else {
+        for (let i = 0; i < questionList.length; i++) {
+            var newScore = new Score(answers[i] ,parseInt(questionList[i].questionAnswer));
+
+            if (answers[i] === parseInt(questionList[i].questionAnswer)) {
+               newScore.isCorrect = true;
+            } else {
+               newScore.isCorrect = false;
+            }
+
+            scoreList.push(newScore);
+        }
+        displayScores(scoreList);
+        return scoreList;
     }
 
-    for (let i = 0; i < questionList.length; i++) {
-        var newScore = new Score(answers[i] ,parseInt(questionList[i].questionAnswer));
-        
-        if (answers[i] === parseInt(questionList[i].questionAnswer)) {
-           newScore.isCorrect = true;
-        } else {
-           newScore.isCorrect = false;
-        }
-        
-        scoreList.push(newScore);
-    }
-    
-    displayScores(scoreList);
-    return scoreList;
 }
 
 function displayScores(scoreList) {
@@ -100,10 +99,19 @@ function displayScores(scoreList) {
 }
 
 function clearQuiz() {
-    $("#quiz").empty();
-    $("#quiz-container").empty();
-    
-    $("#quiz-container").hide();
+    $(".quiz").empty();
     
     $("#subContent").show();
+}
+
+function validateAnswers() {
+    var quizAnswerTexts = $("input[type='text']");
+    
+    for (let i = 0; i < quizAnswerTexts[i].length; i++) {
+        if(isNaN(quizAnswerTexts[i].text) || quizAnswerTexts[i].text === null){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
