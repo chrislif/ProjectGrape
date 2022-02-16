@@ -20,7 +20,7 @@ import model.Test.Quiz;
  */
 public class GrapeDB {
 
-    public static ArrayList<Question> generateQuestionList(String questionLevel) throws SQLException {
+    public static ArrayList<Question> generateQuestionList(String questionLevel, String questionTag) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement statement = null;
@@ -28,10 +28,11 @@ public class GrapeDB {
 
         ArrayList<Question> questionList = new ArrayList();
 
-        String query = "SELECT * FROM question WHERE questionLevel = ?";
+        String query = "SELECT * FROM question WHERE questionLevel = ? and quesionTag = ?";
         try {
             statement = connection.prepareStatement(query);
             statement.setString(1, questionLevel);
+            statement.setString(2, questionTag);
             resultSet = statement.executeQuery();
 
             Question question = null;
