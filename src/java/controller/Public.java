@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Classroom;
 
 /**
  *
@@ -106,10 +107,12 @@ public class Public extends HttpServlet {
                 password = request.getParameter("password");
                 String passwordCheck = request.getParameter("passwordCheck");
                 String userType = request.getParameter("type");
+                String classroom = request.getParameter("classroom");
 
                 if (Authorization.IsValidLogin(username, password, errorList)) {
                     Account newUser = Authorization.RegisterUser(username, password, passwordCheck, userType, errorList);
                     if (newUser != null) {
+                        Authorization.parseClassroom(newUser, classroom);
                         session.setAttribute("currentUser", newUser);
                         url = "/page/profile.jsp";
                     } else {
