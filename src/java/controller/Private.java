@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Question;
 import model.Test.Quiz;
 
 /**
@@ -101,7 +102,7 @@ public class Private extends HttpServlet {
                 String questionLevel = request.getParameter("questionLevels");
                 String questionType = request.getParameter("questionType");
 
-                Quiz newQuiz = QuizGeneration.generateQuiz(questionLevel, questionType, errorList);
+                Quiz newQuiz = Generation.generateQuiz(questionLevel, questionType, errorList);
                 String questionListJSON = gson.toJson(newQuiz.questionList);
 
                 response.setContentType("application/json");
@@ -132,6 +133,14 @@ public class Private extends HttpServlet {
                 break;
             case "addQuestion":
                 url="/page/teacher/addQuestion.jsp";
+                
+                String qText = request.getParameter("questionText");
+                String qAnswer = request.getParameter("questionAnswer");
+                int qLevel = Integer.parseInt(request.getParameter("questionLevels"));
+                String qType = request.getParameter("tag");
+                
+                QuestionPool.addQuestion(qLevel, qText, qAnswer, qType);
+                
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
             case "logout":
@@ -161,5 +170,9 @@ public class Private extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
+    }
+
+    private int ParseInt(String parameter) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

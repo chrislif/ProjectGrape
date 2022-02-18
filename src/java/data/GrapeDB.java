@@ -70,7 +70,7 @@ public class GrapeDB {
 
         String query
                 = "Insert into assessment (assessmentID, assessmentLevel, tag) "
-                + "valus (?, ?, ?)";
+                + "values (?, ?, ?)";
         try {
             ps = connection.prepareStatement(query);
             ps.setInt(1, assessment.getAssessmentID());
@@ -259,6 +259,34 @@ public class GrapeDB {
 
             } catch (Exception e) {
                 throw e;
+            }
+        }
+    }
+    
+    public static void createQuestion(Question question) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+
+        String query
+                = "Insert into question (questionLevel, questionText, questionAnswer, tag) "
+                + "values (?, ?, ?, ?)";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, question.getQuestionLevel());
+            ps.setString(2, question.getQuestionText());
+            ps.setString(3, question.getQuestionAnswer());
+            ps.setString(4, question.getTag());
+            ps.executeUpdate();
+
+        } catch (SQLException sqlEx) {
+            throw sqlEx;
+        } finally {
+            try {
+                ps.close();
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
             }
         }
     }
