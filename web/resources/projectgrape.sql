@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2022 at 09:28 PM
+-- Generation Time: Feb 18, 2022 at 11:04 PM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 7.3.31
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,7 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`accountID`, `userName`, `nickname`, `accountType`, `salt`, `hash`, `email`) VALUES
-(8, 'Chris', NULL, 'Student', 'J9WRSKNI8Z', 'E96655AED50C0994273204E4671B14CD74B2E2FD43ADCB8730705C6DC73B7B87', NULL),
+(8, 'Chris', NULL, 'Student', 'J9WRSKNI8Z', 'E96655AED50C0994273204E4671B14CD74B2E2FD43ADCB8730705C6DC73B7B87', 'chrislnk12@gmail.com'),
 (9, 'David', NULL, 'Student', '8JRL6RQGPA', 'EF5F57568AC917FD396C9C14CB681B4662CDBAD7905374BCE6EFD1E553D14CB7', NULL),
 (10, 'AnthonyLacy', NULL, 'Student', 'NDGRXYCLWX', 'B05FFAC1CAA417BB6DC396F4D9EEA158BBB513E696756EB9AE43954BF33A0A6D', NULL);
 
@@ -90,6 +90,18 @@ CREATE TABLE `classroom` (
 CREATE TABLE `classstudent` (
   `classID` int(11) NOT NULL,
   `studentID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `grade`
+--
+
+CREATE TABLE `grade` (
+  `gradeID` int(11) NOT NULL,
+  `accountID` int(11) NOT NULL,
+  `assessmentID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -154,6 +166,7 @@ INSERT INTO `question` (`questionID`, `questionLevel`, `questionText`, `question
 (41, 1, '3 / 1', '3', 'Division'),
 (42, 1, '12 / 6', '2', 'Division'),
 (43, 1, '9 / 9', '1', 'Division');
+
 -- --------------------------------------------------------
 
 --
@@ -162,9 +175,10 @@ INSERT INTO `question` (`questionID`, `questionLevel`, `questionText`, `question
 
 CREATE TABLE `score` (
   `scoreID` int(11) NOT NULL,
-  `accountID` int(11) NOT NULL,
-  `assessmentID` int(11) NOT NULL,
-  `gradePercent` double NOT NULL
+  `gradeID` int(11) NOT NULL,
+  `questionNumber` int(11) NOT NULL,
+  `userAnswer` varchar(50) NOT NULL,
+  `isCorrect` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -198,10 +212,22 @@ ALTER TABLE `classstudent`
   ADD KEY `studentforeign` (`studentID`);
 
 --
+-- Indexes for table `grade`
+--
+ALTER TABLE `grade`
+  ADD PRIMARY KEY (`gradeID`);
+
+--
 -- Indexes for table `question`
 --
 ALTER TABLE `question`
   ADD PRIMARY KEY (`questionID`);
+
+--
+-- Indexes for table `score`
+--
+ALTER TABLE `score`
+  ADD PRIMARY KEY (`scoreID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -232,10 +258,22 @@ ALTER TABLE `classstudent`
   MODIFY `classID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `grade`
+--
+ALTER TABLE `grade`
+  MODIFY `gradeID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `questionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `questionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT for table `score`
+--
+ALTER TABLE `score`
+  MODIFY `scoreID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

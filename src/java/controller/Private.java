@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Grade;
+import model.Score;
 import model.Test.Quiz;
 
 /**
@@ -112,6 +114,14 @@ public class Private extends HttpServlet {
                 responseOut.flush();
                 break;
 
+            case "storeScore":
+                String scoreListJSON = request.getParameter("scoreListJSON");
+                Grade newGrade = Grading.createGrade(scoreListJSON);
+                
+                
+                
+                break;
+                
             case "toDrill":
                 url = "/page/assessments/drill.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);

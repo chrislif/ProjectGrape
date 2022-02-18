@@ -5,39 +5,49 @@ package model;
  * @author chris
  */
 public class Score {
-    private int accountID;
-    private int assessmentID;
-    private double gradePercent;
-
+    int scoreID;
+    int questionNumber;
+    String userAnswer;
+    Boolean isCorrect;
+    
     public Score() {}
     
-    public Score(int accountID, int assessmentID, double gradePercent) {
-        this.accountID = accountID;
-        this.assessmentID = assessmentID;
-        this.gradePercent = gradePercent;
-    }
-    
-    public int getAccountID() {
-        return accountID;
+    public Score(int scoreID, int questionNumber, String userAnswer, Boolean isCorrect) {
+        this.scoreID = scoreID;
+        this.questionNumber = questionNumber;
+        this.userAnswer = userAnswer;
+        this.isCorrect = isCorrect;
     }
 
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
+    public int getScoreID() {
+        return scoreID;
     }
 
-    public int getAssessmentID() {
-        return assessmentID;
+    public void setScoreID(int scoreID) {
+        this.scoreID = scoreID;
     }
 
-    public void setAssessmentID(int assessmentID) {
-        this.assessmentID = assessmentID;
+    public int getQuestionNumber() {
+        return questionNumber;
     }
 
-    public double getGradePercent() {
-        return gradePercent;
+    public void setQuestionNumber(int questionNumber) {
+        this.questionNumber = questionNumber;
     }
 
-    public void setGradePercent(double gradePercent) {
-        this.gradePercent = gradePercent;
+    public String getUserAnswer() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(String userAnswer) {
+        this.userAnswer = userAnswer;
+    }
+
+    public Boolean getIsCorrect() {
+        return isCorrect;
+    }
+
+    public void setIsCorrect(Boolean isCorrect) {
+        this.isCorrect = isCorrect;
     }
 }

@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import model.Assessment;
 import model.AssessmentQuestions;
+import model.Grade;
 import model.Question;
 import model.Score;
 import model.Test.Quiz;
@@ -128,25 +129,37 @@ public class GrapeDB {
         }
     }
 
-    public static void addScore(Score score) throws SQLException {
+    public static void addGrade(Grade grade) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
+        ResultSet rs = null;
+        int keyValue;
 
         String query
-                = "Insert into score (accountID, assessmentID, gradePercent) "
-                + "valus (?, ?, ?)";
+                = "Insert into grade (accountID, assessmentID) "
+                + "values (?, ?)";
         try {
-            ps = connection.prepareStatement(query);
-            ps.setInt(1, score.getAccountID());
-            ps.setInt(2, score.getAssessmentID());
-            ps.setDouble(3, score.getGradePercent());
+            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, grade.getAccountID());
+            ps.setInt(2, grade.getAssessmentID());
             ps.executeUpdate();
 
+            rs = ps.getGeneratedKeys();
+            
+            if (rs != null) {
+                rs.next();
+                keyValue = rs.getInt(1);
+                
+                for (Score s : grade.scoreList) {
+                    addScore(s, keyValue);
+                }
+            }
         } catch (SQLException sqlEx) {
             throw sqlEx;
         } finally {
             try {
+                rs.close();
                 ps.close();
                 pool.freeConnection(connection);
             } catch (SQLException ex) {
@@ -154,14 +167,44 @@ public class GrapeDB {
             }
         }
     }
+    
+    public static void addScore(Score score, int gradeID) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
 
-    public static Score getScore(int accountID, int assessmentID) throws SQLException {
+        String query
+                = "Insert into score (gradeID, questionNumber, userAnswer, isCorrect) "
+                + "values (?, ?, ?, ?)";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, gradeID);
+            ps.setInt(2, score.getQuestionNumber());
+            ps.setString(3, score.getUserAnswer());
+            ps.setBoolean(4, score.getIsCorrect());
+            ps.executeUpdate();
+
+        } catch (SQLException sqlEx) {
+            throw sqlEx;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+
+    public static Grade getGrade(int accountID, int assessmentID) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "Select * from score "
+        String query = "Select * from grade "
                 + "Where accountID = ? and assessmentID = ?";
 
         try {
@@ -169,16 +212,14 @@ public class GrapeDB {
             ps.setInt(1, assessmentID);
             rs = ps.executeQuery();
 
-            Score s = null;
+            Grade g = null;
 
             if (rs.next()) {
-                s.setAccountID(rs.getInt("scoreAccountID"));
-                s.setAssessmentID(rs.getInt("scoreAssessmentID"));
-                s.setGradePercent(rs.getDouble("scorePercent"));
-
+                g.setAccountID(rs.getInt("scoreAccountID"));
+                g.setAssessmentID(rs.getInt("scoreAssessmentID"));
             }
 
-            return s;
+            return g;
 
         } catch (SQLException ex) {
             throw ex;

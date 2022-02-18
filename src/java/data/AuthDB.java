@@ -3,12 +3,10 @@ package data;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import model.Account;
 
 /**
@@ -103,7 +101,6 @@ public class AuthDB {
         Connection connection = pool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Account user = null;
 
         String query = "SELECT * FROM account WHERE userName = ?";
         try {
@@ -111,12 +108,7 @@ public class AuthDB {
             statement.setString(1, userName);
             resultSet = statement.executeQuery();
 
-            if (resultSet.next()) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return resultSet.next();
         } catch (SQLException ex) {
             throw ex;
         } finally {
@@ -137,7 +129,6 @@ public class AuthDB {
         Connection connection = pool.getConnection();
         PreparedStatement statement = null; 
         ResultSet resultSet = null;
-        Account user = null;
         
         String query = "UPDATE account SET email = ? WHERE userName = ?";
         

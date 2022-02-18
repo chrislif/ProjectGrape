@@ -75,10 +75,26 @@ function processQuiz() {
 
             scoreList.push(newScore);
         }
+        storeScore(scoreList);
         displayScores(scoreList);
-        return scoreList;
     }
+}
 
+function storeScore(scoreList) {
+    let scoreListJSON = JSON.stringify(scoreList);
+    
+    $.ajax({
+        type: "POST",
+        url: "private",
+        data: {'action' : 'storeScore', 'scoreListJSON' : scoreListJSON},
+        dataType: "JSON",
+        success: function(result) {
+            alert("quiz complete!");
+        },
+        error: function (e) {
+            alert(this.url);
+        }
+    });
 }
 
 function displayScores(scoreList) {
