@@ -122,7 +122,18 @@ public class Private extends HttpServlet {
                 session.setAttribute("accountType", currentUser.getType());
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
-
+            case "toAddQuestion":
+                url="/page/teacher/addQuestion.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+                break;
+            case "toQuestionPool":
+                url="/page/teacher/questionPool.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+                break;
+            case "addQuestion":
+                url="/page/teacher/addQuestion.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+                break;
             case "logout":
                 url = "/page/auth/login.jsp";
                 session.setAttribute("currentUser", null);
