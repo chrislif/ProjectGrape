@@ -85,7 +85,7 @@ function displayScores(scoreList) {
     
     $("#processQuiz").hide();
     
-     $("#quiz-container").append("<input type='button' class='styledButton' id='processQuiz' onclick='clearQuiz()' value='Clear Scores'>");
+    $("#quiz-container").append("<input type='button' class='styledButton' id='processQuiz' onclick='clearQuiz()' value='Clear Scores'>");
     
     for (let i in scoreList){
         if (scoreList[i].isCorrect === true){

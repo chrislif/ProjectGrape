@@ -201,7 +201,7 @@ public class GrapeDB {
 
         String query
                 = "Insert into assessmentquestions (assessmentID, questionID) "
-                + "valus (?, ?)";
+                + "values (?, ?)";
         try {
             ps = connection.prepareStatement(query);
             ps.setInt(1, assessmentQuestion.getAssessmentID());

@@ -119,6 +119,7 @@ public class Private extends HttpServlet {
 
             case "toClass":
                 url = "/page/class.jsp";
+                session.setAttribute("accountType", currentUser.getType());
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
 

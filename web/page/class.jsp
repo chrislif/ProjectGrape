@@ -5,12 +5,13 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/page/link/header.jsp"/>
-<main>
+<main>  
     <div class="mainContent">
         <h2>
             Classroom
         </h2>
-
+        
+        <c:if test="${accountType == 'Student'}">
         <div class="subContent">
             <h2>Welcome to Class</h2>
             <p>Would you like to take a test, quiz, or drill?</p>
@@ -29,6 +30,18 @@
                 <input type="submit" value="Drill" class="styledButton">
             </form>
         </div>
+        </c:if>
+        
+        <c:if test="${accountType == 'Teacher'}">
+            <div class="subContent">
+                <h2>Students</h2>
+                
+                <h2>To Create a Test Click Here!</h2>
+                <input class="styledButton" type="button" value="Create a Test">
+            </div>
+        </c:if>
+
+        
     </div>
 </main>
 <jsp:include page="/page/link/footer.jsp"/>
