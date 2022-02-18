@@ -9,7 +9,7 @@ import model.Test.Quiz;
  *
  * @author Dadvid
  */
-public class QuizGeneration {
+public class Generation {
     
     protected static Quiz generateQuiz(String questionLevel, String questionType, ArrayList<String> errorList) {
         ArrayList<Question> questionList = createQuestionList(questionLevel, questionType, errorList);

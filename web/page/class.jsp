@@ -34,10 +34,22 @@
         
         <c:if test="${accountType == 'Teacher'}">
             <div class="subContent">
-                <h2>Students</h2>
+                <h2>Students in Classroom</h2>
                 
                 <h2>To Create a Test Click Here!</h2>
                 <input class="styledButton" type="button" value="Create a Test">
+                
+                <h2>Add Questions to the Question Pool</h2>
+                <form action="private" method="post">
+                    <input type="hidden" name="action" value="toAddQuestion">
+                    <input type="submit" value="Add Question" class="styledButton">
+                </form>
+                
+                <h2>View All Questions in the Question Pool</h2>
+                <form action="private" method="post">
+                    <input type="hidden" name="action" value="toQuestionPool">
+                    <input type="submit" value="Question Pool" class="styledButton">
+                </form>
             </div>
         </c:if>
 
