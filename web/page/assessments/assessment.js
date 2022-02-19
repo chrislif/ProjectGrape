@@ -3,7 +3,6 @@
 var questionList;
 
 $(document).ready(() => {
-
     $("#startQuiz").click(startQuiz);
 });
 
@@ -17,7 +16,6 @@ class Score {
 
 function startQuiz() {
     var questionLevel = $("#questionLevels").find(":selected").text();
-    
     var questionType = $("#questionType").find(":selected").text();
     
     $.ajax({
@@ -58,11 +56,11 @@ function processQuiz() {
     
     var isValid = validateAnswers();
     var scoreList = [];
-    var answers = [];
+    var answers = retrieveAnswers();
     
     //Add Validation
     if (isValid === false) {
-        $("#errorList").val('<p>Make sure every answer is filled out & is a Valid INTEGER</p>');
+        alert('Make sure every answer is filled out & is a Number');
     } else {
         for (let i = 0; i < questionList.length; i++) {
             var newScore = new Score(answers[i] ,parseInt(questionList[i].questionAnswer));
@@ -98,7 +96,6 @@ function storeScore(scoreList) {
 }
 
 function displayScores(scoreList) {
-    
     $("#processQuiz").hide();
     
     $("#quiz-container").append("<input type='button' class='styledButton' id='processQuiz' onclick='clearQuiz()' value='Clear Scores'>");
@@ -122,12 +119,25 @@ function clearQuiz() {
 
 function validateAnswers() {
     var quizAnswerTexts = $("input[type='text']");
+    var isValid = true;
     
-    for (let i = 0; i < quizAnswerTexts[i].length; i++) {
-        if(isNaN(quizAnswerTexts[i].text) || quizAnswerTexts[i].text === null){
-            return false;
-        } else {
-            return true;
+    for (let i = 0; i < quizAnswerTexts.length; i++) {
+        if(quizAnswerTexts[i].value === "" || isNaN(parseInt(quizAnswerTexts[i].value))){
+            isValid = false;
         }
     }
+    
+    return isValid;
+}
+
+function retrieveAnswers() {
+    var quizAnswerTexts = $("input[type='text']");
+    
+    var answers = [];
+    
+    for (let i = 0; i < quizAnswerTexts.length; i++) {
+        answers.push(parseInt(quizAnswerTexts[i].value));
+    }
+    
+    return answers;
 }

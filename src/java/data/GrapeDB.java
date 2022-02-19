@@ -6,14 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import model.Assessment;
 import model.AssessmentQuestions;
 import model.Grade;
 import model.Question;
 import model.Score;
-import model.Test.Quiz;
 
 /**
  *
