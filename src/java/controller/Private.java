@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 import data.AuthDB;
+import data.GrapeDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class Private extends HttpServlet {
         String url;
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
+        PrintWriter responseOut = response.getWriter();
         ArrayList<String> errorList = new ArrayList();
         Gson gson = new Gson();
 
@@ -110,17 +112,16 @@ public class Private extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
-                PrintWriter responseOut = response.getWriter();
                 responseOut.print(questionListJSON);
                 responseOut.flush();
                 break;
 
             case "storeScore":
                 String scoreListJSON = request.getParameter("scoreListJSON");
-                Grade newGrade = Grading.createGrade(scoreListJSON);
+                Boolean isStored = Grading.storeGrade(scoreListJSON, currentUser);
                 
-                
-                
+                responseOut.print(isStored.toString());
+                responseOut.flush();
                 break;
                 
             case "toDrill":

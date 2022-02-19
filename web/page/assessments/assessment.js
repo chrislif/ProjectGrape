@@ -54,9 +54,9 @@ function displayQuiz(questionList) {
 function processQuiz() {
     var quizAnswerTexts = $("input[type='text']");
     
-    var isValid = validateAnswers();
+    var answers = [];
+    var isValid = validateAnswers(answers);
     var scoreList = [];
-    var answers = retrieveAnswers();
     
     //Add Validation
     if (isValid === false) {
@@ -117,7 +117,7 @@ function clearQuiz() {
     $("#subContent").show();
 }
 
-function validateAnswers() {
+function validateAnswers(answers) {
     var quizAnswerTexts = $("input[type='text']");
     var isValid = true;
     
@@ -125,19 +125,8 @@ function validateAnswers() {
         if(quizAnswerTexts[i].value === "" || isNaN(parseInt(quizAnswerTexts[i].value))){
             isValid = false;
         }
-    }
-    
-    return isValid;
-}
-
-function retrieveAnswers() {
-    var quizAnswerTexts = $("input[type='text']");
-    
-    var answers = [];
-    
-    for (let i = 0; i < quizAnswerTexts.length; i++) {
         answers.push(parseInt(quizAnswerTexts[i].value));
     }
     
-    return answers;
+    return isValid;
 }

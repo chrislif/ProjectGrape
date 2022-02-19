@@ -79,8 +79,10 @@ public class GrapeDB {
         } catch (SQLException sqlEx) {
             throw sqlEx;
         } finally {
-            try {
-                ps.close();
+             try {
+                if (ps != null) {
+                    ps.close();
+                }
                 pool.freeConnection(connection);
             } catch (SQLException ex) {
                 throw ex;
@@ -116,12 +118,13 @@ public class GrapeDB {
             throw ex;
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
                 pool.freeConnection(connection);
-
-            } catch (Exception e) {
-                throw e;
+            } catch (SQLException ex) {
+                throw ex;
             }
         }
     }
@@ -156,8 +159,10 @@ public class GrapeDB {
             throw sqlEx;
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
                 pool.freeConnection(connection);
             } catch (SQLException ex) {
                 throw ex;
@@ -222,12 +227,13 @@ public class GrapeDB {
             throw ex;
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
                 pool.freeConnection(connection);
-
-            } catch (Exception e) {
-                throw e;
+            } catch (SQLException ex) {
+                throw ex;
             }
         }
     }
@@ -249,8 +255,10 @@ public class GrapeDB {
         } catch (SQLException sqlEx) {
             throw sqlEx;
         } finally {
-            try {
-                ps.close();
+             try {
+                if (ps != null) {
+                    ps.close();
+                }
                 pool.freeConnection(connection);
             } catch (SQLException ex) {
                 throw ex;
@@ -291,12 +299,13 @@ public class GrapeDB {
             throw ex;
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
                 pool.freeConnection(connection);
-
-            } catch (Exception e) {
-                throw e;
+            } catch (SQLException ex) {
+                throw ex;
             }
         }
     }
@@ -321,7 +330,9 @@ public class GrapeDB {
             throw sqlEx;
         } finally {
             try {
-                ps.close();
+                if (ps != null) {
+                    ps.close();
+                }
                 pool.freeConnection(connection);
             } catch (SQLException ex) {
                 throw ex;

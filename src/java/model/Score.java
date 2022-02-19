@@ -5,13 +5,13 @@ package model;
  * @author chris
  */
 public class Score {
-    int scoreID;
-    int questionNumber;
-    String userAnswer;
-    Boolean isCorrect;
-    
+    private int scoreID;
+    private int questionNumber;
+    private String userAnswer;
+    private Boolean isCorrect;
+
     public Score() {}
-    
+
     public Score(int scoreID, int questionNumber, String userAnswer, Boolean isCorrect) {
         this.scoreID = scoreID;
         this.questionNumber = questionNumber;
