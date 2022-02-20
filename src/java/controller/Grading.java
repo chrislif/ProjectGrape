@@ -31,10 +31,7 @@ public class Grading {
     
     protected static Grade createGrade(String gradeJSON, Account currentUser) {
         Gson gson = new Gson();
-        
-        //Type listType = new TypeToken<ArrayList<TempScore>>() {}.getType();
-        //ArrayList<TempScore> tempScoreList = gson.fromJson(scoreListJSON, listType);
-        
+
         Type gradeType = new TypeToken<TempGrade>() {}.getType();
         TempGrade tempGrade = gson.fromJson(gradeJSON, gradeType);
         
@@ -45,9 +42,8 @@ public class Grading {
             i++;
         }
         
-        Grade newGrade = new Grade();
+        Grade newGrade = new Grade(currentUser.getAccountID(), tempGrade.getQuizID());
         newGrade.scoreList = scoreList;
-        newGrade.setAccountID(currentUser.getAccountID());
         
         return newGrade;
     }

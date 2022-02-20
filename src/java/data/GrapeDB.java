@@ -83,7 +83,7 @@ public class GrapeDB {
                 keyValue = rs.getInt(1);
                 
                 for (Question q : assessment.questionList) {
-                    addAssessmentQuestion(q, assessment.getAssessmentID());
+                    addAssessmentQuestion(q, keyValue);
                 }
             }
         } catch (SQLException sqlEx) {

@@ -48,7 +48,7 @@ function displayQuiz(questionList) {
     
     quiz.show();
     quiz.append('<div class="subContent"> <div id="errorList"></div>\n\
-                    <ol id="quiz"> </ol>\n\
+                    \n\<ol id="quiz"> </ol>\n\
                     </div>');
     
     for(let i in questionList) {
