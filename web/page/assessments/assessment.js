@@ -1,10 +1,17 @@
 "use strict";
 
-var questionList;
+var quiz;
 
 $(document).ready(() => {
     $("#startQuiz").click(startQuiz);
 });
+
+class Grade {
+    constructor(quizID, scoreList) {
+        this.quizID = quizID;
+        this.scoreList = scoreList;
+    }
+}
 
 class Score {
     constructor(userAnswer, correctAnswer) {
@@ -24,9 +31,9 @@ function startQuiz() {
         data: {'action' : 'generateQuiz', 'questionLevels' : questionLevel, 'questionType' : questionType},
         dataType: "JSON",
         success: function(result) {
-            questionList = JSON.parse(result);
+            quiz = JSON.parse(result);
             
-            displayQuiz(questionList);
+            displayQuiz(quiz.questionList);
         },
         error: function (e) {
             alert(this.url);
@@ -62,10 +69,10 @@ function processQuiz() {
     if (isValid === false) {
         alert('Make sure every answer is filled out & is a Number');
     } else {
-        for (let i = 0; i < questionList.length; i++) {
-            var newScore = new Score(answers[i] ,parseInt(questionList[i].questionAnswer));
+        for (let i = 0; i < quiz.questionList.length; i++) {
+            var newScore = new Score(answers[i] ,parseInt(quiz.questionList[i].questionAnswer));
 
-            if (answers[i] === parseInt(questionList[i].questionAnswer)) {
+            if (answers[i] === parseInt(quiz.questionList[i].questionAnswer)) {
                newScore.isCorrect = true;
             } else {
                newScore.isCorrect = false;
@@ -73,21 +80,25 @@ function processQuiz() {
 
             scoreList.push(newScore);
         }
-        storeScore(scoreList);
+        
+        var finalGrade = new Grade(quiz.assessmentID, scoreList);
+        
+        storeGrade(finalGrade);
         displayScores(scoreList);
     }
 }
 
-function storeScore(scoreList) {
-    let scoreListJSON = JSON.stringify(scoreList);
+function storeGrade(finalGrade) {
+    let gradeJSON = JSON.stringify(finalGrade);
     
     $.ajax({
         type: "POST",
         url: "private",
-        data: {'action' : 'storeScore', 'scoreListJSON' : scoreListJSON},
+        data: {'action' : 'storeScore', 'gradeJSON' : gradeJSON},
         dataType: "JSON",
         success: function(result) {
             alert("quiz complete!");
+            alert(result);
         },
         error: function (e) {
             alert(this.url);

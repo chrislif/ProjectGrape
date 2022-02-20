@@ -1,7 +1,9 @@
 package controller;
 
+import controller.temporaryModels.TempScore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import controller.temporaryModels.TempGrade;
 import data.GrapeDB;
 import java.util.ArrayList;
 import java.lang.reflect.Type;
@@ -15,12 +17,11 @@ import model.Score;
  * @author chris
  */
 public class Grading {
-    public static Boolean storeGrade(String scoreListJSON, Account currentUser) {
-        Grade newGrade = createGrade(scoreListJSON, currentUser);
+    protected static Boolean storeGrade(String gradeJSON, Account currentUser) {
+        Grade newGrade = createGrade(gradeJSON, currentUser);
         
         try {
             GrapeDB.addGrade(newGrade);
-            
             return true;
         }
         catch (SQLException ex) {
@@ -28,15 +29,18 @@ public class Grading {
         }
     }
     
-    public static Grade createGrade(String scoreListJSON, Account currentUser) {
+    protected static Grade createGrade(String gradeJSON, Account currentUser) {
         Gson gson = new Gson();
         
-        Type listType = new TypeToken<ArrayList<TempScore>>() {}.getType();
-        ArrayList<TempScore> tempScoreList = gson.fromJson(scoreListJSON, listType);
+        //Type listType = new TypeToken<ArrayList<TempScore>>() {}.getType();
+        //ArrayList<TempScore> tempScoreList = gson.fromJson(scoreListJSON, listType);
+        
+        Type gradeType = new TypeToken<TempGrade>() {}.getType();
+        TempGrade tempGrade = gson.fromJson(gradeJSON, gradeType);
         
         ArrayList<Score> scoreList = new ArrayList<>();
         int i = 1;
-        for (TempScore ts : tempScoreList) {
+        for (TempScore ts : tempGrade.scoreList) {
             scoreList.add(new Score(0, i, ts.getUserAnswer(), ts.getIsCorrect()));
             i++;
         }

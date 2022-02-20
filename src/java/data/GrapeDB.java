@@ -33,8 +33,7 @@ public class GrapeDB {
             statement.setString(2, questionTag);
             resultSet = statement.executeQuery();
 
-            Question question = null;
-
+            Question question;
             while (resultSet.next()) {
                 question = new Question();
                 question.setQuestionID(resultSet.getInt("questionID"));
@@ -61,25 +60,36 @@ public class GrapeDB {
         return questionList;
     }
 
-    public static void createAssessment(Assessment assessment) throws SQLException {
+    public static int createAssessment(Assessment assessment) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
+        ResultSet rs = null;
+        int keyValue = 0;
 
         String query
-                = "Insert into assessment (assessmentID, assessmentLevel, tag) "
-                + "values (?, ?, ?)";
+                = "Insert into assessment (assessmentLevel, tag) "
+                + "values (?, ?)";
         try {
-            ps = connection.prepareStatement(query);
-            ps.setInt(1, assessment.getAssessmentID());
-            ps.setInt(2, assessment.getAssessmentLevel());
-            ps.setString(3, assessment.getTag());
+            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, assessment.getAssessmentLevel());
+            ps.setString(2, assessment.getTag());
             ps.executeUpdate();
 
+            rs = ps.getGeneratedKeys();
+            
+            if (rs != null) {
+                rs.next();
+                keyValue = rs.getInt(1);
+                
+                for (Question q : assessment.questionList) {
+                    addAssessmentQuestion(q, assessment.getAssessmentID());
+                }
+            }
         } catch (SQLException sqlEx) {
             throw sqlEx;
         } finally {
-             try {
+            try {
                 if (ps != null) {
                     ps.close();
                 }
@@ -88,6 +98,7 @@ public class GrapeDB {
                 throw ex;
             }
         }
+        return keyValue;
     }
 
     public static Assessment getAssessment(int assessmentID) throws SQLException {
@@ -238,7 +249,7 @@ public class GrapeDB {
         }
     }
 
-    public static void addAssessmentQuesiton(AssessmentQuestions assessmentQuestion) throws SQLException {
+    public static void addAssessmentQuestion(Question question, int assessmentID) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
@@ -248,8 +259,8 @@ public class GrapeDB {
                 + "values (?, ?)";
         try {
             ps = connection.prepareStatement(query);
-            ps.setInt(1, assessmentQuestion.getAssessmentID());
-            ps.setInt(2, assessmentQuestion.getQuestionID());
+            ps.setInt(1, assessmentID);
+            ps.setInt(2, question.getQuestionID());
             ps.executeUpdate();
 
         } catch (SQLException sqlEx) {

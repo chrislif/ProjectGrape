@@ -107,7 +107,7 @@ public class Private extends HttpServlet {
                 String questionType = request.getParameter("questionType");
 
                 Quiz newQuiz = Generation.generateQuiz(questionLevel, questionType, errorList);
-                String questionListJSON = gson.toJson(newQuiz.questionList);
+                String questionListJSON = gson.toJson(newQuiz);
 
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
@@ -117,8 +117,8 @@ public class Private extends HttpServlet {
                 break;
 
             case "storeScore":
-                String scoreListJSON = request.getParameter("scoreListJSON");
-                Boolean isStored = Grading.storeGrade(scoreListJSON, currentUser);
+                String gradeJSON = request.getParameter("gradeJSON");
+                Boolean isStored = Grading.storeGrade(gradeJSON, currentUser);
                 
                 responseOut.print(isStored.toString());
                 responseOut.flush();
