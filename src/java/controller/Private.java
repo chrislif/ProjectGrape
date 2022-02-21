@@ -156,7 +156,8 @@ public class Private extends HttpServlet {
                 break;
             case "logout":
                 url = "/page/auth/login.jsp";
-                session.setAttribute("currentUser", null);
+                currentUser = null;
+                session.setAttribute("currentUser", currentUser);
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
 
