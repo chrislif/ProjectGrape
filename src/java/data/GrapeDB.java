@@ -11,6 +11,7 @@ import model.AssessmentQuestions;
 import model.Grade;
 import model.Question;
 import model.Score;
+import model.Test.Quiz;
 
 /**
  *
@@ -77,11 +78,11 @@ public class GrapeDB {
             ps.executeUpdate();
 
             rs = ps.getGeneratedKeys();
-            
+
             if (rs != null) {
                 rs.next();
                 keyValue = rs.getInt(1);
-                
+
                 for (Question q : assessment.questionList) {
                     addAssessmentQuestion(q, keyValue);
                 }
@@ -90,8 +91,9 @@ public class GrapeDB {
             throw sqlEx;
         } finally {
             try {
-                if (ps != null) {
+                if (ps != null & rs != null) {
                     ps.close();
+                    rs.close();
                 }
                 pool.freeConnection(connection);
             } catch (SQLException ex) {
@@ -115,15 +117,15 @@ public class GrapeDB {
             ps.setInt(1, assessmentID);
             rs = ps.executeQuery();
 
-            Assessment as = null;
+            Quiz q = new Quiz();
 
             if (rs.next()) {
-                as.setAssessmentID(rs.getInt("assessmentID"));
-                as.setAssessmentLevel(rs.getInt("assessmentLevel"));
-                as.setTag(rs.getString("assessmentTag"));
+                q.setAssessmentID(rs.getInt("assessmentID"));
+                q.setAssessmentLevel(rs.getInt("assessmentLevel"));
+                q.setTag(rs.getString("assessmentTag"));
             }
 
-            return as;
+            return q;
 
         } catch (SQLException ex) {
             throw ex;
@@ -157,11 +159,11 @@ public class GrapeDB {
             ps.executeUpdate();
 
             rs = ps.getGeneratedKeys();
-            
+
             if (rs != null) {
                 rs.next();
                 keyValue = rs.getInt(1);
-                
+
                 for (Score s : grade.scoreList) {
                     addScore(s, keyValue);
                 }
@@ -180,7 +182,7 @@ public class GrapeDB {
             }
         }
     }
-    
+
     public static void addScore(Score score, int gradeID) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -225,7 +227,7 @@ public class GrapeDB {
             ps.setInt(1, assessmentID);
             rs = ps.executeQuery();
 
-            Grade g = null;
+            Grade g = new Grade();
 
             if (rs.next()) {
                 g.setAccountID(rs.getInt("scoreAccountID"));
@@ -266,7 +268,7 @@ public class GrapeDB {
         } catch (SQLException sqlEx) {
             throw sqlEx;
         } finally {
-             try {
+            try {
                 if (ps != null) {
                     ps.close();
                 }
@@ -284,7 +286,7 @@ public class GrapeDB {
         ResultSet rs = null;
 
         ArrayList<AssessmentQuestions> questions = new ArrayList();
-        
+
         String query
                 = "select questionID, questionText from assessmentquestions "
                 + "Where assessmentID = ? "
@@ -298,9 +300,7 @@ public class GrapeDB {
             AssessmentQuestions aq = null;
 
             while (rs.next()) {
-                aq.setAssessmentID(rs.getInt("assessmentID"));
-                aq.setQuestionID(rs.getInt("questionID"));
-                
+
                 questions.add(aq);
             }
 
@@ -320,7 +320,7 @@ public class GrapeDB {
             }
         }
     }
-    
+
     public static void createQuestion(Question question) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -349,5 +349,87 @@ public class GrapeDB {
                 throw ex;
             }
         }
+    }
+    
+    public static ArrayList<Grade> getScores(int accountID) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        ArrayList<Grade> gradeList = new ArrayList();
+
+        String query = "SELECT s.scoreID, s.isCorrect, g.gradeID, g.accountID, g.assessmentID "
+                + "  FROM score s JOIN grade g "
+                + "On g.gradeID = s.gradeID "
+                + "Where g.AccountID = ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, accountID);
+            resultSet = statement.executeQuery();
+
+            Grade grade;
+            Score score;
+            while (resultSet.next()) {
+                if (!doesGradeExist(gradeList, resultSet.getInt("g.assessmentID"))) {
+                    grade = new Grade();
+                    grade.setAccountID(resultSet.getInt("g.accountID"));
+                    grade.setAssessmentID(resultSet.getInt("g.assessmentID"));
+                    grade.scoreList = new ArrayList();
+                } else {
+                    grade = retrieveGradeFromList(gradeList, resultSet.getInt("g.assessmentID"));
+                }
+                
+                score = new Score();
+                score.setScoreID(resultSet.getInt("s.scoreID"));
+                
+                int isCorrectInt = Byte.toUnsignedInt(resultSet.getByte("s.IsCorrect"));
+                
+                if (isCorrectInt == 1) {
+                    score.setIsCorrect(true);
+                } else {
+                    score.setIsCorrect(false);
+                }
+                
+                grade.scoreList.add(score);
+                
+                gradeList.add(grade);
+
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+        return gradeList;
+    }
+    
+    private static boolean doesGradeExist(ArrayList<Grade> gradeList, int g) {
+        
+        boolean doesExist = false;
+        
+        for(Grade grade : gradeList){
+            if (grade.getAssessmentID() == g){
+                doesExist = true;
+            }
+        }
+        return doesExist;
+    }
+    
+    private static Grade retrieveGradeFromList(ArrayList<Grade> gradeList, int g) {
+        
+        for (Grade grade : gradeList) {
+            if (grade.getAssessmentID() == g){return grade;}
+        }
+        
+        return null;
     }
 }

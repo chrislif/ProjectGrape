@@ -45,6 +45,10 @@
         </div>
         <div class="subContent">
             <h2>Grades</h2>
+            
+            <c:forEach items="${gradeList}" var="grade">
+                <p>${grade.assessmentID}</p>
+            </c:forEach>
         </div>
     </div>
 </main>
