@@ -12,6 +12,8 @@ public abstract class Assessment {
     private String tag;
     public ArrayList<Question> questionList;
 
+    public Assessment() {}
+    
     public Assessment(int assessmentID, int assessmentLevel, String tag, ArrayList<Question> questionList) {
         this.assessmentID = assessmentID;
         this.assessmentLevel = assessmentLevel;

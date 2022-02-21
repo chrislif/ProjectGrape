@@ -11,6 +11,7 @@ import model.AssessmentQuestions;
 import model.Grade;
 import model.Question;
 import model.Score;
+import model.Test.Quiz;
 
 /**
  *
@@ -90,8 +91,9 @@ public class GrapeDB {
             throw sqlEx;
         } finally {
             try {
-                if (ps != null) {
+                if (ps != null & rs != null) {
                     ps.close();
+                    rs.close();
                 }
                 pool.freeConnection(connection);
             } catch (SQLException ex) {
@@ -115,15 +117,15 @@ public class GrapeDB {
             ps.setInt(1, assessmentID);
             rs = ps.executeQuery();
 
-            Assessment as = null;
+            Quiz q = new Quiz();
 
             if (rs.next()) {
-                as.setAssessmentID(rs.getInt("assessmentID"));
-                as.setAssessmentLevel(rs.getInt("assessmentLevel"));
-                as.setTag(rs.getString("assessmentTag"));
+                q.setAssessmentID(rs.getInt("assessmentID"));
+                q.setAssessmentLevel(rs.getInt("assessmentLevel"));
+                q.setTag(rs.getString("assessmentTag"));
             }
 
-            return as;
+            return q;
 
         } catch (SQLException ex) {
             throw ex;
@@ -225,7 +227,7 @@ public class GrapeDB {
             ps.setInt(1, assessmentID);
             rs = ps.executeQuery();
 
-            Grade g = null;
+            Grade g = new Grade();
 
             if (rs.next()) {
                 g.setAccountID(rs.getInt("scoreAccountID"));
@@ -298,8 +300,6 @@ public class GrapeDB {
             AssessmentQuestions aq = null;
 
             while (rs.next()) {
-                aq.setAssessmentID(rs.getInt("assessmentID"));
-                aq.setQuestionID(rs.getInt("questionID"));
 
                 questions.add(aq);
             }

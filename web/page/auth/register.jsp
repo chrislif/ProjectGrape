@@ -51,7 +51,7 @@
                             <p>
                                 Classroom: 
                             </p>
-                            <input type="text" name="classroom">
+                            <input type="text" name="classroom" value="${classroom}">
                         </div>
                         <input type="submit" value="Register" class="styledButton">
                     </form>

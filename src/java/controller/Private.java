@@ -2,9 +2,9 @@ package controller;
 
 import com.google.gson.Gson;
 import data.AuthDB;
-import data.GrapeDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
-import model.Question;
 import model.Grade;
-import model.Score;
 import model.Test.Quiz;
 
 /**
@@ -44,7 +42,6 @@ public class Private extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String url;
         String action = request.getParameter("action");
-        HttpSession session = request.getSession();
 
         switch (action) {
             default:
@@ -91,7 +88,7 @@ public class Private extends HttpServlet {
                 url = "/page/profile.jsp";
                 try {
                     AuthDB.updateEmail(currentUser.getUserName(), email);
-                } catch (Exception ex) {
+                } catch (SQLException ex) {
                     errorList.add("Error");
                 }
                 getServletContext().getRequestDispatcher(url).forward(request, response);
@@ -161,7 +158,8 @@ public class Private extends HttpServlet {
                 break;
             case "logout":
                 url = "/page/auth/login.jsp";
-                session.setAttribute("currentUser", null);
+                currentUser = null;
+                session.setAttribute("currentUser", currentUser);
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
 
@@ -185,10 +183,7 @@ public class Private extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "The private servlet manager for MathWiz";
     }
 
-    private int ParseInt(String parameter) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

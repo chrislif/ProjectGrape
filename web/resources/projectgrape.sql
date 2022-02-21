@@ -54,7 +54,7 @@ INSERT INTO `account` (`accountID`, `userName`, `nickname`, `accountType`, `salt
 
 CREATE TABLE `assessment` (
   `assessmentID` int(11) NOT NULL,
-  `assessmentLevel` int(11) NOT NULL,
+  `assessmentLevel` int(11) NOT NULL, 
   `tag` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

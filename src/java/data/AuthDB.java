@@ -155,6 +155,38 @@ public class AuthDB {
         }
     }
     
+    public static int createClassroom(int teacherID, String className) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null; 
+        ResultSet resultSet = null;
+        Account user = null;
+        
+        String query = "INSERT INTO classroom (teacherID, className) VALUES (?, ?)";
+        
+        try{
+           statement = connection.prepareStatement(query);
+           statement.setInt(1, teacherID);
+           statement.setString(2, className);
+
+           
+           return statement.executeUpdate();
+           
+        }catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException e) {
+                throw e;
+            }
+        }
+    }
+    
    /* I'm using this post as a reference for the hashing methodology:
     * https://stackoverflow.com/questions/20832008/jsp-simple-password-encryption-decryption
     * and this is the information for reference to the SALT:
