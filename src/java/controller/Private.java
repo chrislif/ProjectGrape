@@ -77,6 +77,11 @@ public class Private extends HttpServlet {
         switch (action) {
             case "toProfile":
                 url = "/page/profile.jsp";
+                
+                ArrayList<Grade> gradeList = Grading.retrieveGrades(currentUser.getAccountID());
+                
+                request.setAttribute("gradeList", gradeList);
+                
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
 
