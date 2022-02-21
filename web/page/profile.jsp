@@ -20,7 +20,7 @@
                 Email: <c:out value="${currentUser.email}" /><br>
 
                 Account ID: <c:out value="${currentUser.accountID}" /> <br>
-                
+
             </p>
 
             <form action="private" method="post">
@@ -40,12 +40,14 @@
                 <input type="text" name="password" value="">
                 <input type="submit" value="Update Password" class="styledButton">
             </form>
-                
-                <p id="message"></p>
+
+            <p>
+                <c:out value="${message}" />
+            </p>
         </div>
         <div class="subContent">
             <h2>Grades</h2>
-            
+
             <c:forEach items="${gradeList}" var="grade">
                 <p>${grade.assessmentID}</p>
             </c:forEach>

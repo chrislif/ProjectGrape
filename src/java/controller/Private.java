@@ -93,6 +93,7 @@ public class Private extends HttpServlet {
                 try {
                     AuthDB.updateEmail(currentUser.getUserName(), email);
                     currentUser.setEmail(email);
+                    message = "Email changed!";
 
                 } catch (Exception ex) {
                     errorList.add("Error");
@@ -107,7 +108,8 @@ public class Private extends HttpServlet {
                     try {
                         AuthDB.updateUserName(userN, currentUser.getUserName());
                         currentUser.setUserName(userN);
-
+                        message = "User Name changed!";
+                        
                     } catch (Exception ex) {
                         errorList.add("Error");
 
@@ -132,7 +134,6 @@ public class Private extends HttpServlet {
                             hash = AuthDB.hashPassword(password, salt);
                             AuthDB.updatePassword(salt, hash, currentUser.getUserName());
                             message = "password updated!";
-                            
                             
                         } catch (NoSuchAlgorithmException ex) {
                             errorList.add("Error: Unable to encrypt password");
@@ -221,6 +222,7 @@ public class Private extends HttpServlet {
                 break;
         }
         session.setAttribute("currentUser", currentUser);
+        session.setAttribute("message", message);
 
         //getServletContext().getRequestDispatcher(url).forward(request, response);
     }
