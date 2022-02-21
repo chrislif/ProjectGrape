@@ -38,7 +38,6 @@ public class Public extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String url;
         String action = request.getParameter("action");
-        HttpSession session = request.getSession();
 
         switch (action) {
             default:
