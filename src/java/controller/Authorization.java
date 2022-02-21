@@ -74,6 +74,7 @@ public class Authorization {
         try {
             AuthDB.createAccount(user, salt, hash);
             Account currentUser = user;
+
         }
         catch (SQLException ex) {
             errorList.add(ex.getMessage());
@@ -103,7 +104,7 @@ public class Authorization {
         
     }
     
-    private static String randomSalt(){
+    public static String randomSalt(){
         String alphanumericList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
