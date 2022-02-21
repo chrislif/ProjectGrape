@@ -155,7 +155,7 @@ public class AuthDB {
         }
     }
     
-    public static Account createClassroom(int teacherID, String className) throws SQLException{
+    public static int createClassroom(int teacherID, String className) throws SQLException{
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement statement = null; 
@@ -170,7 +170,7 @@ public class AuthDB {
            statement.setString(2, className);
 
            
-           return user;
+           return statement.executeUpdate();
            
         }catch (SQLException ex) {
             throw ex;
