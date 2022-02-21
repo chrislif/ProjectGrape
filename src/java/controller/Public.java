@@ -111,7 +111,7 @@ public class Public extends HttpServlet {
                 if (Authorization.IsValidLogin(username, password, errorList)) {
                     Account newUser = Authorization.RegisterUser(username, password, passwordCheck, userType, errorList);
                     if (newUser != null) {
-                        Authorization.parseClassroom(newUser, classroom);
+                        Authorization.parseClassroom(newUser, classroom, errorList);
                         session.setAttribute("currentUser", newUser);
                         url = "/page/profile.jsp";
                     } else {
