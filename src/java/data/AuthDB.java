@@ -187,6 +187,39 @@ public class AuthDB {
         }
     }
     
+    //does nothing
+    public static int joinClassroom(int studentID, String className) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null; 
+        ResultSet resultSet = null;
+        Account user = null;
+        
+        String query = "INSERT INTO classstudent (studentID, className) VALUES (?, ?)";
+        
+        try{
+           statement = connection.prepareStatement(query);
+           statement.setInt(1, studentID);
+           statement.setString(2, className);
+
+           
+           return statement.executeUpdate();
+           
+        }catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException e) {
+                throw e;
+            }
+        }
+    }
+    
     public static int updateUserName (String userName, String userN) throws SQLException{
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();

@@ -70,9 +70,8 @@ public class Authorization {
         }
 
         try {
-            AuthDB.createAccount(user, salt, hash);
-            Account currentUser = user;
-
+            String newUserIDString = AuthDB.createAccount(user, salt, hash);
+            user.setAccountID(Integer.parseInt(newUserIDString));
         }
         catch (SQLException ex) {
             errorList.add(ex.getMessage());
@@ -88,9 +87,10 @@ public class Authorization {
                 createClassroom(account.getAccountID(), classroomName, errorList);
                 break;
             case "Student":
-                joinClassroom(account.getAccountID(), classroomName);
+                joinClassroom(account.getAccountID(), classroomName, errorList);
                 break;
             default:
+                createClassroom(account.getAccountID(), classroomName, errorList);
                 break;
         }
     }
@@ -103,8 +103,13 @@ public class Authorization {
         }
     }
 
-    private static void joinClassroom(int accountID, String classroomName) {
-
+    //does nothing
+    private static void joinClassroom(int accountID, String classroomName, ArrayList<String> errorList) {
+        try {
+            AuthDB.joinClassroom(accountID, classroomName);
+        } catch (SQLException ex) {
+            errorList.add(ex.getMessage());   
+        }
     }
     
     public static String randomSalt(){
