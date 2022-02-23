@@ -14,7 +14,7 @@
         </h1>
         <div class="subContent">
             <h2>
-                User Name: <c:out value="${currentUser.userName}" />
+                Hello <c:out value="${currentUser.userName}" />!
             </h2>
             <p>
                 Email: <c:out value="${currentUser.email}" /><br>
