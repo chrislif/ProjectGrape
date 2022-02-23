@@ -45,7 +45,7 @@
                 <c:out value="${message}" />
             </p>
         </div>
-                <c:if test="${accountType == 'Student'}">
+                <c:if test="${currentUser.type == 'Student'}">
                     <div class="subContent">
             <h2>Grades</h2>
 
