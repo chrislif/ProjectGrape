@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import model.Account;
+import model.Classroom;
 
 /**
  *
@@ -168,6 +169,75 @@ public class AuthDB {
            statement = connection.prepareStatement(query);
            statement.setInt(1, teacherID);
            statement.setString(2, className);
+
+           
+           return statement.executeUpdate();
+           
+        }catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException e) {
+                throw e;
+            }
+        }
+    }
+    
+    
+    public static int findClassroomID(String classroomName) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null; 
+        ResultSet resultSet = null;
+        Classroom classroom = null;
+        
+        String query = "SELECT classID FROM classroom WHERE className = ?";
+        
+        try{
+           statement = connection.prepareStatement(query);
+           statement.setString(1, classroomName);
+           resultSet = statement.executeQuery();
+           resultSet.next();
+           classroom = new Classroom();
+           
+           classroom.setClassroomID(resultSet.getInt("classID"));
+          
+           
+           return classroom.getClassroomID();
+           
+        }catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException e) {
+                throw e;
+            }
+        }
+    }
+    
+    public static int joinClassroom(int studentID, String classroomName) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null; 
+        ResultSet resultSet = null;
+        Account user = null;
+        
+        String query = "INSERT INTO classstudent (classID, studentID) VALUES (?, ?)";
+        
+        try{
+           statement = connection.prepareStatement(query);
+           statement.setInt(1, findClassroomID(classroomName));
+           statement.setInt(2, studentID);
 
            
            return statement.executeUpdate();

@@ -9,22 +9,15 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
         <script type="text/javascript" src="index.js"></script>
         <div class="mainContent">
-            <h2>
-                Lorem Ipsum Text
-            </h2>
+            <h1>
+                Welcome to Team Grape's MathWiz
+            </h1>
             <div class="subContent">
-                <p>
-                    The pain itself is the love of the pain, the main ecological 
-                    problems, but I give this kind of time to fall down, so that 
-                    some great pain and pain. For the purpose of coming to a minimum, 
-                    who of ours should exercise any employment except to take 
-                    advantage of the consequences from it. But the pain in the film 
-                    is irate to condemn, in the pleasure it wants to escape from 
-                    the pain of being clumsy in pain, none result. They are the 
-                    exceptions the blinds yearn for, they don't see, they are the 
-                    ones who abandon their responsibilities to the fault that is 
-                    soothing the soul's hardships.
-                </p>
+                <h2 class="content-header">
+                    What is MathWiz?
+                </h2>
+                
+                <p>MathWiz is the go to tutoring platform for teachers and students alike.</p>
             </div>
             
             <div class="subContent">

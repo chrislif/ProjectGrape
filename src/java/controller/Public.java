@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Classroom;
+import model.Grade;
 
 /**
  *
@@ -90,6 +91,15 @@ public class Public extends HttpServlet {
                     if (user != null) {
                         session.setAttribute("currentUser", user);
                         url = "/page/profile.jsp";
+                        
+                        ArrayList<Grade> gradeList = Grading.retrieveGrades(user.getAccountID());
+                        ArrayList<Double> grades = Grading.processGrades(gradeList);
+                        double finalGrade = Grading.getFinalGrade(grades);
+                
+                        request.setAttribute("finalGrade", finalGrade);
+                        request.setAttribute("grades", grades);
+                        request.setAttribute("gradeList", gradeList);
+                        
                     } else {
                         url = "/page/auth/login.jsp";
                     }
@@ -114,6 +124,7 @@ public class Public extends HttpServlet {
                         session.setAttribute("currentUser", newUser);
                         Authorization.parseClassroom(newUser, classroom, errorList);
                         url = "/page/profile.jsp";
+                        
                     } else {
                         url = "/page/auth/register.jsp";
                     }
