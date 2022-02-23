@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2022 at 11:04 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- Generation Time: Feb 23, 2022 at 09:37 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,7 +44,9 @@ CREATE TABLE `account` (
 INSERT INTO `account` (`accountID`, `userName`, `nickname`, `accountType`, `salt`, `hash`, `email`) VALUES
 (8, 'Chris', NULL, 'Student', 'J9WRSKNI8Z', 'E96655AED50C0994273204E4671B14CD74B2E2FD43ADCB8730705C6DC73B7B87', 'chrislnk12@gmail.com'),
 (9, 'David', NULL, 'Student', '8JRL6RQGPA', 'EF5F57568AC917FD396C9C14CB681B4662CDBAD7905374BCE6EFD1E553D14CB7', NULL),
-(10, 'AnthonyLacy', NULL, 'Student', 'NDGRXYCLWX', 'B05FFAC1CAA417BB6DC396F4D9EEA158BBB513E696756EB9AE43954BF33A0A6D', NULL);
+(10, 'AnthonyLacy', NULL, 'Student', 'NDGRXYCLWX', 'B05FFAC1CAA417BB6DC396F4D9EEA158BBB513E696756EB9AE43954BF33A0A6D', NULL),
+(17, 'Mr. Teacher', NULL, 'Teacher', 'WW7LY4V5XP', 'F8B4CE9EAAD0977A54187FA2897A09F9504EB065920B03B5CE57B0927E9EE168', NULL),
+(18, 'jackson', NULL, 'Student', '0W209V1P3Y', 'B10BADBAF5487D788D9E460F5B8234AE12383475263AFDA65EB83938EC85DB4E', NULL);
 
 -- --------------------------------------------------------
 
@@ -54,7 +56,7 @@ INSERT INTO `account` (`accountID`, `userName`, `nickname`, `accountType`, `salt
 
 CREATE TABLE `assessment` (
   `assessmentID` int(11) NOT NULL,
-  `assessmentLevel` int(11) NOT NULL, 
+  `assessmentLevel` int(11) NOT NULL,
   `tag` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -80,6 +82,13 @@ CREATE TABLE `classroom` (
   `teacherID` int(11) NOT NULL,
   `className` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `classroom`
+--
+
+INSERT INTO `classroom` (`classID`, `teacherID`, `className`) VALUES
+(5, 17, 'New class');
 
 -- --------------------------------------------------------
 
@@ -208,8 +217,8 @@ ALTER TABLE `classroom`
 -- Indexes for table `classstudent`
 --
 ALTER TABLE `classstudent`
-  ADD PRIMARY KEY (`classID`),
-  ADD KEY `studentforeign` (`studentID`);
+  ADD KEY `studentforeign` (`studentID`),
+  ADD KEY `classID` (`classID`) USING BTREE;
 
 --
 -- Indexes for table `grade`
@@ -237,7 +246,7 @@ ALTER TABLE `score`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `accountID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `accountID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `assessment`
@@ -249,13 +258,7 @@ ALTER TABLE `assessment`
 -- AUTO_INCREMENT for table `classroom`
 --
 ALTER TABLE `classroom`
-  MODIFY `classID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `classstudent`
---
-ALTER TABLE `classstudent`
-  MODIFY `classID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `classID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `grade`

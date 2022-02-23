@@ -81,7 +81,7 @@ public class Private extends HttpServlet {
         ArrayList<Grade> gradeList = Grading.retrieveGrades(currentUser.getAccountID());
         ArrayList<Double> grades = Grading.processGrades(gradeList);
         double finalGrade = Grading.getFinalGrade(grades);
-        
+
         switch (action) {
             case "toProfile":
                 url = "/page/profile.jsp";
@@ -211,7 +211,16 @@ public class Private extends HttpServlet {
                 break;
             case "toQuestionPool":
                 url = "/page/teacher/questionPool.jsp";
+                
+                String qText = request.getParameter("questionText");
+                String qAnswer = request.getParameter("questionAnswer");
+                int qLevel = Integer.parseInt(request.getParameter("questionLevels"));
+                String qType = request.getParameter("tag");
 
+                errorList = QuestionPool.addQuestion(qLevel, qText, qAnswer, qType, errorList);
+
+                request.setAttribute("errorList", errorList);
+                
                 ArrayList<Question> questionList = new ArrayList<Question>();
 
                 try {
@@ -221,19 +230,6 @@ public class Private extends HttpServlet {
                     errorList.add("SQL Error");
                 }
 
-                getServletContext().getRequestDispatcher(url).forward(request, response);
-                break;
-            case "addQuestion":
-                url = "/page/teacher/questionPool.jsp";
-                
-                String qText = request.getParameter("questionText");
-                String qAnswer = request.getParameter("questionAnswer");
-                int qLevel = Integer.parseInt(request.getParameter("questionLevels"));
-                String qType = request.getParameter("tag");
-
-                errorList = QuestionPool.addQuestion(qLevel, qText, qAnswer, qType, errorList);
-                
-                request.setAttribute("errorList", errorList);
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
             case "logout":
@@ -256,7 +252,7 @@ public class Private extends HttpServlet {
 
     public Private() {
     }
-    
+
     /**
      * Returns a short description of the servlet.
      *
