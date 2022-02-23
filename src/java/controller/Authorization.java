@@ -72,7 +72,9 @@ public class Authorization {
         try {
             AuthDB.createAccount(user, salt, hash);
             Account currentUser = user;
-        } catch (SQLException ex) {
+
+        }
+        catch (SQLException ex) {
             errorList.add(ex.getMessage());
             return null;
         }
@@ -104,8 +106,8 @@ public class Authorization {
     private static void joinClassroom(int accountID, String classroomName) {
 
     }
-
-    private static String randomSalt() {
+    
+    public static String randomSalt(){
         String alphanumericList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();

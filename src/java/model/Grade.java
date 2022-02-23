@@ -17,7 +17,6 @@ public class Grade {
         this.accountID = accountID;
         this.assessmentID = assessmentID;
     }
-    
     public int getAccountID() {
         return accountID;
     }

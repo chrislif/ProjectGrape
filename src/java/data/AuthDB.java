@@ -187,6 +187,68 @@ public class AuthDB {
         }
     }
     
+    public static int updateUserName (String userName, String userN) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null; 
+        ResultSet resultSet = null;
+        
+        String query = "UPDATE account SET userName = ? where userName = ?";
+        
+        try{
+            statement = connection.prepareStatement(query);
+            statement.setString(1, userName);
+            statement.setString(2, userN);
+            
+            return statement.executeUpdate();
+            
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException e) {
+                throw e;
+            }            
+        }
+    }
+    
+    public static int updatePassword (String salt, String hash, String userName) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null; 
+        ResultSet resultSet = null;
+        
+        String query = "UPDATE account SET salt = ?, hash = ? "
+                + "where userName = ?";
+        
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, salt);
+            statement.setString(2, hash);
+            statement.setString(3, userName);
+            
+            return statement.executeUpdate();
+            
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException e) {
+                throw e;
+            }            
+        }
+    }
+    
    /* I'm using this post as a reference for the hashing methodology:
     * https://stackoverflow.com/questions/20832008/jsp-simple-password-encryption-decryption
     * and this is the information for reference to the SALT:

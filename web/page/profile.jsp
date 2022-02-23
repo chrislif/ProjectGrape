@@ -14,23 +14,43 @@
         </h1>
         <div class="subContent">
             <h2>
-                <c:out value="${currentUser.userName}" />
+                User Name: <c:out value="${currentUser.userName}" />
             </h2>
             <p>
-                Email: <c:out value="${currentUser.email}" />
+                Email: <c:out value="${currentUser.email}" /><br>
+
+                Account ID: <c:out value="${currentUser.accountID}" /> <br>
+
             </p>
-            <br>
-            <p>
+
+            <form action="private" method="post">
+                <input type="hidden" name="action" value="updateUserName">
+                <input type="text" name="userName" value="${currentUser.userName}">
+                <input type="submit" value="Update User Name" class="styledButton">
+            </form>                
+
             <form action="private" method="post">
                 <input type="hidden" name="action" value="updateEmail">
                 <input type="text" name="emailInput" value="${currentUser.email}">
                 <input type="submit" value="Update Email" class="styledButton">
             </form>
 
+            <form action="private" method="post">
+                <input type="hidden" name="action" value="updatePassword">
+                <input type="text" name="password" value="">
+                <input type="submit" value="Update Password" class="styledButton">
+            </form>
+
+            <p>
+                <c:out value="${message}" />
             </p>
         </div>
         <div class="subContent">
             <h2>Grades</h2>
+
+            <c:forEach items="${grades}" var="grade">
+                <p>${grade}</p>
+            </c:forEach>
         </div>
     </div>
 </main>
