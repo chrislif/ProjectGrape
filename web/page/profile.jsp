@@ -45,13 +45,16 @@
                 <c:out value="${message}" />
             </p>
         </div>
-        <div class="subContent">
+                <c:if test="${accountType == 'Student'}">
+                    <div class="subContent">
             <h2>Grades</h2>
 
             <c:forEach items="${grades}" var="grade">
                 <p>${grade}</p>
             </c:forEach>
         </div>
+                </c:if>
+        
     </div>
 </main>
 <jsp:include page="/page/link/footer.jsp"/>

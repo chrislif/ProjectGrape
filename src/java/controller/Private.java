@@ -87,6 +87,8 @@ public class Private extends HttpServlet {
                 request.setAttribute("grades", grades);
                 request.setAttribute("gradeList", gradeList);
                 
+                session.setAttribute("accountType", currentUser.getType());
+                
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
 
@@ -209,8 +211,9 @@ public class Private extends HttpServlet {
                 int qLevel = Integer.parseInt(request.getParameter("questionLevels"));
                 String qType = request.getParameter("tag");
 
-                QuestionPool.addQuestion(qLevel, qText, qAnswer, qType);
-
+                errorList = QuestionPool.addQuestion(qLevel, qText, qAnswer, qType, errorList);
+                
+                request.setAttribute("errorList", errorList);
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
             case "logout":

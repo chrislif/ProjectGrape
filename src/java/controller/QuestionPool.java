@@ -7,6 +7,7 @@ package controller;
 
 import data.GrapeDB;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import model.Question;
 
 /**
@@ -15,7 +16,7 @@ import model.Question;
  */
 public class QuestionPool {
     
-    protected static void addQuestion(int newQLevel, String newQText, String newQAnswer, String newQType) {
+    protected static ArrayList<String> addQuestion(int newQLevel, String newQText, String newQAnswer, String newQType, ArrayList<String> errorList) {
         
         boolean isValid = false;
         
@@ -25,7 +26,8 @@ public class QuestionPool {
             GrapeDB.createQuestion(new Question(tempID, newQLevel, newQText, newQAnswer, newQType));
             
         } catch (SQLException ex) {
-            
+            errorList.add("Error Adding to DB");
         }
+        return errorList;
     }
 }
