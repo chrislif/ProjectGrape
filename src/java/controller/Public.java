@@ -94,6 +94,9 @@ public class Public extends HttpServlet {
                         
                         ArrayList<Grade> gradeList = Grading.retrieveGrades(user.getAccountID());
                         ArrayList<Double> grades = Grading.processGrades(gradeList);
+                        double finalGrade = Grading.getFinalGrade(grades);
+                
+                        request.setAttribute("finalGrade", finalGrade);
                         request.setAttribute("grades", grades);
                         request.setAttribute("gradeList", gradeList);
                         

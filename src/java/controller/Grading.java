@@ -90,7 +90,7 @@ public class Grading {
             totalGrade += g;
         }
         
-        double finalGrade = (totalGrade / grades.size()) * 100;
+        double finalGrade = (totalGrade / grades.size());
         
         return finalGrade;
     }
