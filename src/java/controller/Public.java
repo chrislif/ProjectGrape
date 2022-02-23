@@ -59,13 +59,17 @@ public class Public extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url;
+        String url = "";
         String username;
         String password;
 
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         ArrayList<String> errorList = new ArrayList();
+
+        ArrayList<Grade> gradeList = null;
+        ArrayList<Double> grades = null;
+        double finalGrade = 0.0;
 
         Account currentUser = (Account) session.getAttribute("currentUser");
 
@@ -90,16 +94,8 @@ public class Public extends HttpServlet {
                     Account user = Authorization.authorizeUser(username, password, errorList);
                     if (user != null) {
                         session.setAttribute("currentUser", user);
-                        url = "/page/profile.jsp";
-                        
-                        ArrayList<Grade> gradeList = Grading.retrieveGrades(user.getAccountID());
-                        ArrayList<Double> grades = Grading.processGrades(gradeList);
-                        double finalGrade = Grading.getFinalGrade(grades);
-                
-                        request.setAttribute("finalGrade", finalGrade);
-                        request.setAttribute("grades", grades);
-                        request.setAttribute("gradeList", gradeList);
-                        
+                        url = "/index.jsp";
+
                     } else {
                         url = "/page/auth/login.jsp";
                     }
@@ -120,11 +116,11 @@ public class Public extends HttpServlet {
 
                 if (Authorization.IsValidLogin(username, password, errorList)) {
                     Account newUser = Authorization.RegisterUser(username, password, passwordCheck, userType, errorList);
-                    if (newUser != null) { 
+                    if (newUser != null) {
                         session.setAttribute("currentUser", newUser);
                         Authorization.parseClassroom(newUser, classroom, errorList);
                         url = "/page/profile.jsp";
-                        
+
                     } else {
                         url = "/page/auth/register.jsp";
                     }

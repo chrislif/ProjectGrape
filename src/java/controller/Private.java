@@ -78,18 +78,15 @@ public class Private extends HttpServlet {
 
         Account currentUser = (Account) session.getAttribute("currentUser");
         
+        ArrayList<Grade> gradeList = Grading.retrieveGrades(currentUser.getAccountID());
+        ArrayList<Double> grades = Grading.processGrades(gradeList);
+        double finalGrade = Grading.getFinalGrade(grades);
+        
         switch (action) {
             case "toProfile":
                 url = "/page/profile.jsp";
-
-                ArrayList<Grade> gradeList = Grading.retrieveGrades(currentUser.getAccountID());
-
-                ArrayList<Double> grades = Grading.processGrades(gradeList);
-
-                double finalGrade = Grading.getFinalGrade(grades);
                 
                 request.setAttribute("finalGrade", finalGrade);
-
                 request.setAttribute("grades", grades);
                 request.setAttribute("gradeList", gradeList);
 
@@ -108,6 +105,10 @@ public class Private extends HttpServlet {
                 } catch (Exception ex) {
                     errorList.add("Error");
                 }
+                
+                request.setAttribute("finalGrade", finalGrade);
+                request.setAttribute("grades", grades);
+                request.setAttribute("gradeList", gradeList);
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
 
@@ -128,6 +129,9 @@ public class Private extends HttpServlet {
                     errorList.add("User Name cannot be empty!");
                 }
 
+                request.setAttribute("finalGrade", finalGrade);
+                request.setAttribute("grades", grades);
+                request.setAttribute("gradeList", gradeList);
                 url = "/page/profile.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
 
@@ -151,6 +155,9 @@ public class Private extends HttpServlet {
                         errorList.add("Error changing password");
                     }
                 }
+                request.setAttribute("finalGrade", finalGrade);
+                request.setAttribute("grades", grades);
+                request.setAttribute("gradeList", gradeList);
 
                 url = "/page/profile.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
