@@ -53,11 +53,35 @@ public class Grading {
         try {
             ArrayList<Grade> gradeList = new ArrayList<>();
             gradeList = GrapeDB.getScores(accountID);
-            
+
             return gradeList;
         } catch (SQLException ex) {
 
             return null;
         }
+    }
+
+    protected static ArrayList<Integer> processGrades(ArrayList<Grade> gradeList) {
+        ArrayList<Integer> percentageGrades = new ArrayList();
+        
+        for (Grade g : gradeList) {
+            int numIsCorrect = 0;
+
+            ArrayList<Score> newScoreList = g.scoreList;
+            for (Score s : newScoreList) {
+                if (s.getIsCorrect() == true) {
+                    numIsCorrect++;
+                } else {
+                    continue;
+                }
+            }
+            int finalGrade = (numIsCorrect/newScoreList.size()) * 100;
+            
+            System.out.println(finalGrade);
+            
+            percentageGrades.add(finalGrade);
+        }
+
+        return percentageGrades;
     }
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import data.AuthDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.console;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -80,7 +81,10 @@ public class Private extends HttpServlet {
                 url = "/page/profile.jsp";
                 
                 ArrayList<Grade> gradeList = Grading.retrieveGrades(currentUser.getAccountID());
+
+                ArrayList<Integer> grades = Grading.processGrades(gradeList);
                 
+                request.setAttribute("grades", grades);
                 request.setAttribute("gradeList", gradeList);
                 
                 getServletContext().getRequestDispatcher(url).forward(request, response);
