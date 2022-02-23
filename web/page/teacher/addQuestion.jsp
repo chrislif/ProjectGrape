@@ -12,7 +12,7 @@
         <h2>Fill out the form to add the question</h2>
 
         <form action="private" method="post">
-            <input type="hidden" name="action" value="addQuestion">
+            <input type="hidden" name="action" value="toQuestionPool">
 
             <label for="tag">What type of question is this?</label>
             <select name="tag" id="tag">
