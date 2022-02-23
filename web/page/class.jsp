@@ -11,7 +11,7 @@
             Classroom
         </h2>
         
-        <c:if test="${accountType == 'Student'}">
+        <c:if test="${currentUser.type == 'Student'}">
         <div class="subContent">
             <h2>Welcome to Class</h2>
             <p>Would you like to take a test, quiz, or drill?</p>
@@ -32,7 +32,7 @@
         </div>
         </c:if>
         
-        <c:if test="${accountType == 'Teacher'}">
+        <c:if test="${currentUser.type == 'Teacher'}">
             <div class="subContent">
                 <h2>Students in Classroom</h2>
                 

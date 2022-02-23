@@ -81,13 +81,12 @@ public class Private extends HttpServlet {
                 url = "/page/profile.jsp";
                 
                 ArrayList<Grade> gradeList = Grading.retrieveGrades(currentUser.getAccountID());
-
                 ArrayList<Double> grades = Grading.processGrades(gradeList);
+                double finalGrade = Grading.getFinalGrade(grades);
                 
+                request.setAttribute("finalGrade", finalGrade);
                 request.setAttribute("grades", grades);
                 request.setAttribute("gradeList", gradeList);
-                
-                session.setAttribute("accountType", currentUser.getType());
                 
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
@@ -192,7 +191,6 @@ public class Private extends HttpServlet {
 
             case "toClass":
                 url = "/page/class.jsp";
-                session.setAttribute("accountType", currentUser.getType());
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
             case "toAddQuestion":

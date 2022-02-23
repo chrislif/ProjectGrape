@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Classroom;
+import model.Grade;
 
 /**
  *
@@ -90,6 +91,15 @@ public class Public extends HttpServlet {
                     if (user != null) {
                         session.setAttribute("currentUser", user);
                         url = "/page/profile.jsp";
+                        
+                        ArrayList<Grade> gradeList = Grading.retrieveGrades(user.getAccountID());
+                        ArrayList<Double> grades = Grading.processGrades(gradeList);
+                        double finalGrade = Grading.getFinalGrade(grades);
+                
+                        request.setAttribute("finalGrade", finalGrade);
+                        request.setAttribute("grades", grades);
+                        request.setAttribute("gradeList", gradeList);
+                        
                     } else {
                         url = "/page/auth/login.jsp";
                     }
@@ -106,14 +116,15 @@ public class Public extends HttpServlet {
                 password = request.getParameter("password");
                 String passwordCheck = request.getParameter("passwordCheck");
                 String userType = request.getParameter("type");
-                String classroomName = request.getParameter("classroom");
+                String classroom = request.getParameter("classroom");
 
                 if (Authorization.IsValidLogin(username, password, errorList)) {
                     Account newUser = Authorization.RegisterUser(username, password, passwordCheck, userType, errorList);
                     if (newUser != null) { 
                         session.setAttribute("currentUser", newUser);
-                        Authorization.parseClassroom(newUser, classroomName, errorList);
+                        Authorization.parseClassroom(newUser, classroom, errorList);
                         url = "/page/profile.jsp";
+                        
                     } else {
                         url = "/page/auth/register.jsp";
                     }
