@@ -376,6 +376,7 @@ public class GrapeDB {
                     grade.setAccountID(resultSet.getInt("g.accountID"));
                     grade.setAssessmentID(resultSet.getInt("g.assessmentID"));
                     grade.scoreList = new ArrayList();
+                    gradeList.add(grade);
                 } else {
                     grade = retrieveGradeFromList(gradeList, resultSet.getInt("g.assessmentID"));
                 }
@@ -393,7 +394,7 @@ public class GrapeDB {
                 
                 grade.scoreList.add(score);
                 
-                gradeList.add(grade);
+                
 
             }
         } catch (SQLException ex) {

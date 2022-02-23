@@ -82,7 +82,7 @@ public class Private extends HttpServlet {
                 
                 ArrayList<Grade> gradeList = Grading.retrieveGrades(currentUser.getAccountID());
 
-                ArrayList<Integer> grades = Grading.processGrades(gradeList);
+                ArrayList<Double> grades = Grading.processGrades(gradeList);
                 
                 request.setAttribute("grades", grades);
                 request.setAttribute("gradeList", gradeList);

@@ -51,8 +51,7 @@ public class Grading {
 
     protected static ArrayList<Grade> retrieveGrades(int accountID) {
         try {
-            ArrayList<Grade> gradeList = new ArrayList<>();
-            gradeList = GrapeDB.getScores(accountID);
+            ArrayList<Grade> gradeList = GrapeDB.getScores(accountID);
 
             return gradeList;
         } catch (SQLException ex) {
@@ -61,8 +60,8 @@ public class Grading {
         }
     }
 
-    protected static ArrayList<Integer> processGrades(ArrayList<Grade> gradeList) {
-        ArrayList<Integer> percentageGrades = new ArrayList();
+    protected static ArrayList<Double> processGrades(ArrayList<Grade> gradeList) {
+        ArrayList<Double> percentageGrades = new ArrayList();
         
         for (Grade g : gradeList) {
             int numIsCorrect = 0;
@@ -71,11 +70,10 @@ public class Grading {
             for (Score s : newScoreList) {
                 if (s.getIsCorrect() == true) {
                     numIsCorrect++;
-                } else {
-                    continue;
                 }
             }
-            int finalGrade = (numIsCorrect/newScoreList.size()) * 100;
+            
+            double finalGrade = ((double)numIsCorrect / (double)newScoreList.size()) * 100;
             
             System.out.println(finalGrade);
             
