@@ -16,7 +16,7 @@ import model.Question;
 public class QuestionPool {
     
     protected static void addQuestion(int newQLevel, String newQText, String newQAnswer, String newQType) {
-        
+
         boolean isValid = false;
         
         int tempID = 0;

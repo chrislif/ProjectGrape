@@ -413,6 +413,46 @@ public class GrapeDB {
         return gradeList;
     }
     
+    public static ArrayList<Question> generateQuestionPool() throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        ArrayList<Question> questionList = new ArrayList();
+
+        String query = "SELECT * FROM question";
+        try {
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            Question question;
+            while (resultSet.next()) {
+                question = new Question();
+                question.setQuestionID(resultSet.getInt("questionID"));
+                question.setQuestionLevel(resultSet.getInt("questionLevel"));
+                question.setQuestionText(resultSet.getString("questionText"));
+                question.setQuestionAnswer(resultSet.getString("questionAnswer"));
+                question.setTag(resultSet.getString("tag"));
+
+                questionList.add(question);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+        return questionList;
+    }
+    
     private static boolean doesGradeExist(ArrayList<Grade> gradeList, int g) {
         
         boolean doesExist = false;
