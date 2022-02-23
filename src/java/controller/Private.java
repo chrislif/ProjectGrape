@@ -84,6 +84,9 @@ public class Private extends HttpServlet {
 
                 ArrayList<Double> grades = Grading.processGrades(gradeList);
                 
+                double finalGrade = Grading.getFinalGrade(grades);
+                
+                request.setAttribute("finalGrade", finalGrade);
                 request.setAttribute("grades", grades);
                 request.setAttribute("gradeList", gradeList);
                 

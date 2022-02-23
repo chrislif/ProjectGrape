@@ -82,4 +82,16 @@ public class Grading {
 
         return percentageGrades;
     }
+    
+    protected static Double getFinalGrade(ArrayList<Double> grades) {
+        double totalGrade = 0;
+        
+        for (Double g : grades) {
+            totalGrade += g;
+        }
+        
+        double finalGrade = (totalGrade / grades.size()) * 100;
+        
+        return finalGrade;
+    }
 }
