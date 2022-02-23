@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 import data.AuthDB;
+import data.GrapeDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.console;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Grade;
+import model.Question;
 import model.Test.Quiz;
 
 /**
@@ -75,19 +77,22 @@ public class Private extends HttpServlet {
         Gson gson = new Gson();
 
         Account currentUser = (Account) session.getAttribute("currentUser");
-
+        
         switch (action) {
             case "toProfile":
                 url = "/page/profile.jsp";
-                
+
                 ArrayList<Grade> gradeList = Grading.retrieveGrades(currentUser.getAccountID());
+
                 ArrayList<Double> grades = Grading.processGrades(gradeList);
+
                 double finalGrade = Grading.getFinalGrade(grades);
                 
                 request.setAttribute("finalGrade", finalGrade);
+
                 request.setAttribute("grades", grades);
                 request.setAttribute("gradeList", gradeList);
-                
+
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
 
@@ -114,7 +119,7 @@ public class Private extends HttpServlet {
                         AuthDB.updateUserName(userN, currentUser.getUserName());
                         currentUser.setUserName(userN);
                         message = "User Name changed!";
-                        
+
                     } catch (Exception ex) {
                         errorList.add("Error");
 
@@ -132,21 +137,21 @@ public class Private extends HttpServlet {
                 String password = request.getParameter("password");
 
                 if (!password.isEmpty()) {
-                        String hash;
-                        String salt = Authorization.randomSalt();
+                    String hash;
+                    String salt = Authorization.randomSalt();
 
-                        try {
-                            hash = AuthDB.hashPassword(password, salt);
-                            AuthDB.updatePassword(salt, hash, currentUser.getUserName());
-                            message = "password updated!";
-                            
-                        } catch (NoSuchAlgorithmException ex) {
-                            errorList.add("Error: Unable to encrypt password");
-                        } catch (Exception ex){
-                            errorList.add("Error changing password");
-                        }
+                    try {
+                        hash = AuthDB.hashPassword(password, salt);
+                        AuthDB.updatePassword(salt, hash, currentUser.getUserName());
+                        message = "password updated!";
+
+                    } catch (NoSuchAlgorithmException ex) {
+                        errorList.add("Error: Unable to encrypt password");
+                    } catch (Exception ex) {
+                        errorList.add("Error changing password");
+                    }
                 }
-                
+
                 url = "/page/profile.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
 
@@ -199,11 +204,21 @@ public class Private extends HttpServlet {
                 break;
             case "toQuestionPool":
                 url = "/page/teacher/questionPool.jsp";
+
+                ArrayList<Question> questionList = new ArrayList<Question>();
+
+                try {
+                    questionList = GrapeDB.generateQuestionPool();
+                    request.setAttribute("questionList", questionList);
+                } catch (SQLException ex) {
+                    errorList.add("SQL Error");
+                }
+
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
             case "addQuestion":
-                url = "/page/teacher/addQuestion.jsp";
-
+                url = "/page/teacher/questionPool.jsp";
+                
                 String qText = request.getParameter("questionText");
                 String qAnswer = request.getParameter("questionAnswer");
                 int qLevel = Integer.parseInt(request.getParameter("questionLevels"));
@@ -234,7 +249,7 @@ public class Private extends HttpServlet {
 
     public Private() {
     }
-
+    
     /**
      * Returns a short description of the servlet.
      *
