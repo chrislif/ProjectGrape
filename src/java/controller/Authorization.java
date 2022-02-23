@@ -103,7 +103,6 @@ public class Authorization {
         }
     }
 
-    //does nothing
     private static void joinClassroom(int accountID, String classroomName, ArrayList<String> errorList) {
         try {
             AuthDB.joinClassroom(accountID, classroomName);

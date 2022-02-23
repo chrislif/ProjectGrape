@@ -106,13 +106,13 @@ public class Public extends HttpServlet {
                 password = request.getParameter("password");
                 String passwordCheck = request.getParameter("passwordCheck");
                 String userType = request.getParameter("type");
-                String classroom = request.getParameter("classroom");
+                String classroomName = request.getParameter("classroom");
 
                 if (Authorization.IsValidLogin(username, password, errorList)) {
                     Account newUser = Authorization.RegisterUser(username, password, passwordCheck, userType, errorList);
                     if (newUser != null) { 
                         session.setAttribute("currentUser", newUser);
-                        Authorization.parseClassroom(newUser, classroom, errorList);
+                        Authorization.parseClassroom(newUser, classroomName, errorList);
                         url = "/page/profile.jsp";
                     } else {
                         url = "/page/auth/register.jsp";
