@@ -83,6 +83,7 @@ public class Private extends HttpServlet {
                 url = "/page/profile.jsp";
 
                 ArrayList<Grade> gradeList = Grading.retrieveGrades(currentUser.getAccountID());
+
                 ArrayList<Double> grades = Grading.processGrades(gradeList);
 
                 double finalGrade = Grading.getFinalGrade(grades);
