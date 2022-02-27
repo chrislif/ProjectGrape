@@ -13,6 +13,24 @@ body {
     flex-direction: column;
 }
 
+.addQuestionDiv {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.addQuestionForm {
+    display: flex;
+    gap: 20px;
+}
+
+.addQuestionTitle, .questionPool-Title {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+
 table, td, th {
     border: 1px solid;
     font-size: 120%;
@@ -25,6 +43,7 @@ th {
 table {
     width: 50%;
     border-collapse: collapse;
+    margin: 0 auto;
 }
 
 tr:nth-child(even) {background-color: #f2e3ff}

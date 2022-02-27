@@ -8,56 +8,60 @@
 <jsp:include page="/page/link/header.jsp"/>
 <main>
     <div class='mainContent'>
-        <h1>Question Pool</h1>
+        <div class='subContent addQuestionDiv'>
+            <h2 class="addQuestionTitle">Add a Question to the Pool</h2>
 
-        <table>     
-            <tr>
-                <th>ID</th>
-                <th>Level</th>
-                <th>Question</th>
-                <th>Answer</th>
-            </tr>
+            <form action="private" method="post" class="addQuestionForm">
+                <input type="hidden" name="action" value="addQuestionToPool">
 
+                <label for="tag">Question Type:</label>
+                <select name="tag" id="tag">
+                    <option value="Addition">Addition</option>
+                    <option value="Subtraction">Subtraction</option>
+                    <option value="Multiplication">Multiplication</option>
+                    <option value="Division">Division</option>
+                </select>
 
-            <c:forEach items="${questionList}" var="question"> 
+                <label for="questionText">Question Text:</label>
+                <input type="text" name="questionText" id="questionText">
+
+                <label for="questionAnswer">Question Answer:</label>
+                <input type="text" name="questionAnswer" id="questionAnswer">
+
+                <label for="questionLevels">Question Difficulty:</label><br>
+                <select name="questionLevels" id="questionLevels">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+
+                <input type="submit" value="Add Question" class="">
+            </form>
+        </div>
+        <div class='subContent questionPool'>
+            <h1 class="questionPool-Title">Question Pool</h1>
+
+            <table>     
                 <tr>
-                    <td>${question.questionID}</td>
-                    <td>${question.questionLevel}</td>
-                    <td>${question.questionText}</td>
-                    <td>${question.questionAnswer}</td>
+                    <th>ID</th>
+                    <th>Level</th>
+                    <th>Question</th>
+                    <th>Answer</th>
                 </tr>
-            </c:forEach>
-             
-        </table>   
-        <br>
-        <h2>add a question</h2>
 
-        <form action="private" method="post">
-            <input type="hidden" name="action" value="addQuestionToPool">
 
-            <label for="tag">What type of question is this?</label>
-            <select name="tag" id="tag">
-                <option value="Addition">Addition</option>
-                <option value="Subtraction">Subtraction</option>
-                <option value="Multiplication">Multiplication</option>
-                <option value="Division">Division</option>
-            </select>
+                <c:forEach items="${questionList}" var="question"> 
+                    <tr>
+                        <td>${question.questionID}</td>
+                        <td>${question.questionLevel}</td>
+                        <td>${question.questionText}</td>
+                        <td>${question.questionAnswer}</td>
+                    </tr>
+                </c:forEach>
 
-            <label for="questionText">Question Text:</label>
-            <input type="text" name="questionText" id="questionText">
+            </table>   
+        </div>
 
-            <label for="questionAnswer">Question Answer:</label>
-            <input type="text" name="questionAnswer" id="questionAnswer">
-
-            <label for="questionLevels">How difficult is the question</label><br>
-            <select name="questionLevels" id="questionLevels">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-
-            <input type="submit" value="Add Question">
-        </form>
     </div> 
 </main>
 
