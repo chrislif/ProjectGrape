@@ -209,9 +209,8 @@ public class Private extends HttpServlet {
                 url = "/page/teacher/addQuestion.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
-            case "toQuestionPool":
+            case "addQuestionToPool":
                 url = "/page/teacher/questionPool.jsp";
-                
                 String qText = request.getParameter("questionText");
                 String qAnswer = request.getParameter("questionAnswer");
                 int qLevel = Integer.parseInt(request.getParameter("questionLevels"));
@@ -220,6 +219,10 @@ public class Private extends HttpServlet {
                 errorList = QuestionPool.addQuestion(qLevel, qText, qAnswer, qType, errorList);
 
                 request.setAttribute("errorList", errorList);
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+                break;
+            case "toQuestionPool":
+                url = "/page/teacher/questionPool.jsp";
                 
                 ArrayList<Question> questionList = new ArrayList<Question>();
 

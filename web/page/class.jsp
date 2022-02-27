@@ -7,45 +7,51 @@
 <jsp:include page="/page/link/header.jsp"/>
 <main>  
     <div class="mainContent">
-        <h2>
-            Classroom
-        </h2>
-        
-        <c:if test="${currentUser.type == 'Student'}">
-        <div class="subContent">
-            <h2>Welcome to Class</h2>
-            <p>Would you like to take a test, quiz, or drill?</p>
-            <form action="private" method="post">
-                <input type="hidden" name="action" value="toQuiz">
-                <input type="submit" value="Quiz" class="styledButton">
-            </form>
-            
-            <form action="private" method="post">
-                <input type="hidden" name="action" value="toTest">
-                <input type="submit" value="Test" class="styledButton">
-            </form>
 
-            <form action="private" method="post">
-                <input type="hidden" name="action" value="toDrill">
-                <input type="submit" value="Drill" class="styledButton">
-            </form>
-        </div>
-        </c:if>
-        
-        <c:if test="${currentUser.type == 'Teacher'}">
+        <c:if test="${currentUser.type == 'Student'}">
+            <h2>Welcome to Class</h2>
             <div class="subContent">
-                <h2>Students in Classroom</h2>
-                
-                <h2>To Create a Test Click Here!</h2>
-                <input class="styledButton" type="button" value="Create a Test">
-                
-                <h2>Add Questions to the Question Pool</h2>
+
+                <p>
+                    Here you can hone your knowledge on various subjects by taking quiz's. Customize the challenge of these 
+                    quizzes to your liking and feel free to move up a level to really test your knowledge
+                </p>
+                <h2>Study, Study, Study!</h2>
                 <form action="private" method="post">
-                    <input type="hidden" name="action" value="toAddQuestion">
-                    <input type="submit" value="Add Question" class="styledButton">
+                    <input type="hidden" name="action" value="toQuiz">
+                    <input type="submit" value="Quiz" class="styledButton">
+                </form>
+
+                <!--            
+                <form action="private" method="post">
+                    <input type="hidden" name="action" value="toTest">
+                    <input type="submit" value="Test" class="styledButton">
                 </form>
                 
-                <h2>View All Questions in the Question Pool</h2>
+                <form action="private" method="post">
+                    <input type="hidden" name="action" value="toDrill">
+                    <input type="submit" value="Drill" class="styledButton">
+                </form>-->
+            </div>
+        </c:if>
+
+        <c:if test="${currentUser.type == 'Teacher'}">
+            <h2>Here is your Classroom</h2>
+            <div class="subContent">
+
+
+            <!--                                
+            <h2>To Create a Test Click Here!</h2>
+                <input class="styledButton" type="button" value="Create a Test">
+
+            <h2>Add Questions to the Question Pool</h2>
+            <form action="private" method="post">
+                <input type="hidden" name="action" value="toAddQuestion">
+                <input type="submit" value="Add Question" class="styledButton">
+            </form>-->
+
+            <h2>View all the Questions in the Question Pool <br>
+                Add More Questions to the Question Pool</h2>
                 <form action="private" method="post">
                     <input type="hidden" name="action" value="toQuestionPool">
                     <input type="submit" value="Question Pool" class="styledButton">
@@ -53,7 +59,7 @@
             </div>
         </c:if>
 
-        
+
     </div>
 </main>
 <jsp:include page="/page/link/footer.jsp"/>
