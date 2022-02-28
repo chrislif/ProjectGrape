@@ -9,14 +9,15 @@
     <div class="mainContent">
 
         <c:if test="${currentUser.type == 'Student'}">
-            <h2>Welcome to Class</h2>
+            <h1>Welcome to Class</h1>
             <div class="subContent">
-
-                <p>
-                    Here you can hone your knowledge on various subjects by taking quiz's. Customize the challenge of these 
-                    quizzes to your liking and feel free to move up a level to really test your knowledge
-                </p>
-                <h2>Study, Study, Study!</h2>
+                <div class="para-content">
+                    <p>
+                        Here you can hone your knowledge on various subjects by taking quiz's. Modify the challenge of these 
+                        quizzes to your liking and feel free to increase the difficulty level to really test your knowledge.
+                    </p>
+                    <p>Click the link below to get started!</p>
+                </div>
                 <form action="private" method="post">
                     <input type="hidden" name="action" value="toQuiz">
                     <input type="submit" value="Quiz" class="styledButton">
@@ -36,22 +37,24 @@
         </c:if>
 
         <c:if test="${currentUser.type == 'Teacher'}">
-            <h2>Here is your Classroom</h2>
+            <h1>Here is your Classroom</h1>
             <div class="subContent">
+                <!--                                
+                <h2>To Create a Test Click Here!</h2>
+                    <input class="styledButton" type="button" value="Create a Test">
+    
+                <h2>Add Questions to the Question Pool</h2>
+                <form action="private" method="post">
+                    <input type="hidden" name="action" value="toAddQuestion">
+                    <input type="submit" value="Add Question" class="styledButton">
+                </form>-->
+                <div class="para-content">
+                    <p>
+                        With the link below you can add questions to your classroom's question pool.
+                        Each question will be displayed for you to look through as well!
+                    </p>
+                </div>
 
-
-            <!--                                
-            <h2>To Create a Test Click Here!</h2>
-                <input class="styledButton" type="button" value="Create a Test">
-
-            <h2>Add Questions to the Question Pool</h2>
-            <form action="private" method="post">
-                <input type="hidden" name="action" value="toAddQuestion">
-                <input type="submit" value="Add Question" class="styledButton">
-            </form>-->
-
-            <h2>View all the Questions in the Question Pool <br>
-                Add More Questions to the Question Pool</h2>
                 <form action="private" method="post">
                     <input type="hidden" name="action" value="toQuestionPool">
                     <input type="submit" value="Question Pool" class="styledButton">

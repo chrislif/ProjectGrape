@@ -47,13 +47,19 @@
         </div>
         <c:if test="${currentUser.type == 'Student'}">
             <div class="subContent">
-                <h2>Grades</h2>
+                <h1>Grades</h1>
                 
-                <h2>Total Grade ${finalGrade}</h2>
-
+                <table>
+                    <tr>
+                        <th>Total Grade ${finalGrade}%</th>
+                    </tr>
+                
                 <c:forEach items="${grades}" var="grade">
-                    <p>${grade}</p>
+                    <tr>
+                        <td>${grade}%</td>
+                    </tr>
                 </c:forEach>
+                </table>
             </div>
         </c:if>
 
