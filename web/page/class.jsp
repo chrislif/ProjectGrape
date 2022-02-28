@@ -59,6 +59,24 @@
                     <input type="hidden" name="action" value="toQuestionPool">
                     <input type="submit" value="Question Pool" class="styledButton">
                 </form>
+
+            </div>
+            <div class='subContent'>
+                <h1>Current Students</h1>
+
+                <table>     
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Nickname</th>
+                    </tr>
+                    <c:forEach items="${studentList}" var="student"> 
+                        <tr>
+                            <td>${student.userName}</td>
+                            <td>${student.nickname}</td>
+                        </tr>
+                    </c:forEach>
+
+                </table>   
             </div>
         </c:if>
 

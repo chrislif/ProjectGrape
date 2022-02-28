@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import model.Account;
 import model.Assessment;
 import model.AssessmentQuestions;
 import model.Grade;
@@ -451,6 +452,44 @@ public class GrapeDB {
             }
         }
         return questionList;
+    }
+    
+    public static ArrayList<Account> retrieveStudents() throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        ArrayList<Account> studentList = new ArrayList();
+
+        String query = "SELECT * FROM account WHERE accountType = 'Student'";
+        try {
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            Account student;
+            while (resultSet.next()) {
+                student = new Account();
+                student.setUserName(resultSet.getString("userName"));
+                student.setNickname(resultSet.getString("nickname"));
+                student.setType(resultSet.getString("accountType"));
+
+                studentList.add(student);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            try {
+                if (resultSet != null && statement != null) {
+                    resultSet.close();
+                    statement.close();
+                }
+                pool.freeConnection(connection);
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+        return studentList;
     }
     
     private static boolean doesGradeExist(ArrayList<Grade> gradeList, int g) {

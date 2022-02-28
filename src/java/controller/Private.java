@@ -77,7 +77,7 @@ public class Private extends HttpServlet {
         Gson gson = new Gson();
 
         Account currentUser = (Account) session.getAttribute("currentUser");
-        
+
         ArrayList<Grade> gradeList = Grading.retrieveGrades(currentUser.getAccountID());
         ArrayList<Double> grades = Grading.processGrades(gradeList);
         double finalGrade = Grading.getFinalGrade(grades);
@@ -85,7 +85,7 @@ public class Private extends HttpServlet {
         switch (action) {
             case "toProfile":
                 url = "/page/profile.jsp";
-                
+
                 request.setAttribute("finalGrade", finalGrade);
                 request.setAttribute("grades", grades);
                 request.setAttribute("gradeList", gradeList);
@@ -105,7 +105,7 @@ public class Private extends HttpServlet {
                 } catch (Exception ex) {
                     errorList.add("Error");
                 }
-                
+
                 request.setAttribute("finalGrade", finalGrade);
                 request.setAttribute("grades", grades);
                 request.setAttribute("gradeList", gradeList);
@@ -203,6 +203,19 @@ public class Private extends HttpServlet {
 
             case "toClass":
                 url = "/page/class.jsp";
+
+                try {
+                    ArrayList<Account> studentList = GrapeDB.retrieveStudents();
+
+                    if (errorList.isEmpty()) {
+                        request.setAttribute("studentList", studentList);
+                    } else {
+                        request.setAttribute("errorList", errorList);
+                    }
+                } catch (SQLException ex) {
+                    errorList.add("SQL Error");
+                }
+
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 break;
             case "toAddQuestion":
@@ -223,7 +236,7 @@ public class Private extends HttpServlet {
                 break;
             case "toQuestionPool":
                 url = "/page/teacher/questionPool.jsp";
-                
+
                 ArrayList<Question> questionList = new ArrayList<Question>();
 
                 try {
