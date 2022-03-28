@@ -124,12 +124,13 @@ public class AuthDB {
             }
         }
     }
-    
+
     public static int updateEmail(String userName, String email) throws SQLException{
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement statement = null; 
         ResultSet resultSet = null;
+        
         
         String query = "UPDATE account SET email = ? WHERE userName = ?";
         
